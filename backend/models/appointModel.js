@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const productSchema = new Schema({
-    product:{
+const appointSchema = new Schema({
+    appoint:{
         type: Schema.Types.ObjectId,
-        ref: "Product"
+        ref: "Appoint"
     },
     time_start: {
         type: String,
@@ -27,4 +27,4 @@ const productSchema = new Schema({
     },
 }, { timestamps: true })
 
-module.exports = mongoose.model('Product', productSchema)
+module.exports = mongoose.model('Appoint', appointSchema)

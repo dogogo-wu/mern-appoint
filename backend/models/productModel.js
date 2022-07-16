@@ -24,7 +24,7 @@ const productSchema = new Schema({
     },
     userid: {
         type: Number,
-        required: true
+        // required: true
     },
     myid: {
         type: Number,
