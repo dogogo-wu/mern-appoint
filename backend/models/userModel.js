@@ -14,11 +14,11 @@ const userSchema = new Schema({
         required: true
     },
     myid:{
-        tyoe: Number,
+        type: Number,
         required: true
     },
     power: {
-        tyoe: Number,
+        type: Number,
         required: true
     }
 },{timestamps: true})

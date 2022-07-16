@@ -6,16 +6,16 @@ const productSchema = new Schema({
         required: true
     },
     img: {
-        type:String,
+        type: String,
     },
     pre_time: {
-        type:String,
+        type: String,
         required: true
     },
-    myid:{
-        tyoe: Number,
+    myid: {
+        type: Number,
         required: true
-    }
-},{timestamps: true})
+    },
+}, { timestamps: true })
 
 module.exports = mongoose.model('Product', productSchema)
