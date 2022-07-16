@@ -13,11 +13,19 @@ const userSchema = new Schema({
         type:String,
         required: true
     },
-    myid:{
+    power: {
         type: Number,
         required: true
     },
-    power: {
+    products:[{
+        type: Schema.Types.ObjectId,
+        ref: "Product"
+    }],
+    appoints:[{
+        type: Schema.Types.ObjectId,
+        ref: "Appoint"
+    }],
+    myid:{
         type: Number,
         required: true
     }

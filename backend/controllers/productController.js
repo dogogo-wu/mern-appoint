@@ -8,7 +8,7 @@ const getProducts = async (req, res) => {
 }
 
 // Get one item
-const getProduct = async (req, res)=>{
+const getProduct = async (req, res) => {
     const { id } = req.params
     if (!(mongoose.Types.ObjectId.isValid(id))) {
         return res.status(404).json({ error: 'No such item' })
@@ -23,7 +23,18 @@ const getProduct = async (req, res)=>{
 // Create one item
 const createProduct = async (req, res) => {
     const { name, img, pre_time } = req.body;
-    const myid = 0
+
+    // generate myid (start from 1)
+    var myid = 0;
+    const item_cnt = await Product.count({});
+    if (item_cnt == 0) {
+        myid = 1;
+    } else {
+        // get max id
+        const tarobj = await Product.findOne().sort({myid: -1})
+        myid = parseInt(tarobj.myid) + 1
+    }
+
     try {
         const product = await Product.create({
             name, img, pre_time, myid
@@ -35,12 +46,12 @@ const createProduct = async (req, res) => {
 }
 
 // Delete one item
-const deleteProduct = async (req, res)=>{
+const deleteProduct = async (req, res) => {
     const { id } = req.params
     if (!(mongoose.Types.ObjectId.isValid(id))) {
         return res.status(404).json({ error: 'No such item' })
     }
-    const product = await Product.findOneAndDelete({_id: id})
+    const product = await Product.findOneAndDelete({ _id: id })
     if (!product) {
         return res.status(404).json({ error: 'No such item' })
     }
@@ -48,12 +59,12 @@ const deleteProduct = async (req, res)=>{
 }
 
 // Update one item
-const updateProduct = async (req, res)=>{
+const updateProduct = async (req, res) => {
     const { id } = req.params
     if (!(mongoose.Types.ObjectId.isValid(id))) {
         return res.status(404).json({ error: 'No such item' })
     }
-    const product = await Product.findOneAndUpdate({_id: id},{...req.body})
+    const product = await Product.findOneAndUpdate({ _id: id }, { ...req.body })
     if (!product) {
         return res.status(404).json({ error: 'No such item' })
     }

@@ -8,8 +8,22 @@ const productSchema = new Schema({
     img: {
         type: String,
     },
-    pre_time: {
+    occupied_time: [{
+        start: { type: String },
+        end: { type: String }
+    }],
+    prepare_time: {
         type: String,
+    },
+    longest_appoint_time: {
+        type: String,
+    },
+    available_duration:{
+        start: { type: String },
+        end: { type: String }
+    },
+    userid: {
+        type: Number,
         required: true
     },
     myid: {
