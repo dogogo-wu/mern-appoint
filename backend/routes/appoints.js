@@ -1,30 +1,23 @@
 const express  = require("express")
 const router = express.Router()
-const Appoint = require('../models/appointModel')
+const {
+    getAppoints, 
+    getAppoint, 
+    createAppoint, 
+    deleteAppoint, 
+    updateAppoint 
+} = require('../controllers/appointController')
 
-// Get all items
-router.get('/', (req, res) => {
-    res.json({ mssg: 'get all' })
-})
 
-// Get one item
-router.get('/:id', (req, res) => {
-    res.json({ mssg: 'get one' })
-})
+router.get('/', getAppoints)
 
-// Create one item
-router.post('/', (req, res) => {
-    res.json({ mssg: 'create one' })
-})
+router.get('/:id', getAppoint)
 
-// Update one item
-router.patch('/:id', (req, res) => {
-    res.json({ mssg: 'update one' })
-})
+router.post('/', createAppoint)
 
-// Delete one item
-router.delete('/:id', (req, res) => {
-    res.json({ mssg: 'delete one' })
-})
+router.delete('/:id', deleteAppoint)
+
+router.patch('/:id', updateAppoint)
+
 
 module.exports = router

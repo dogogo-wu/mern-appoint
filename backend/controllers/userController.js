@@ -24,20 +24,20 @@ const getUser = async (req, res) => {
 const createUser = async (req, res) => {
     const { name, email, password, power } = req.body;
 
-    // generate myid (start from 1)
-    var myid = 0;
+    // generate my_id (start from 1)
+    var my_id = 0;
     const item_cnt = await User.count({});
     if (item_cnt == 0) {
-        myid = 1;
+        my_id = 1;
     } else {
         // get max id
-        const tarobj = await User.findOne().sort({ myid: -1 })
-        myid = parseInt(tarobj.myid) + 1
+        const tarobj = await User.findOne().sort({ my_id: -1 })
+        my_id = parseInt(tarobj.my_id) + 1
     }
 
     try {
         const user = await User.create({
-            name, email, password, power, myid
+            name, email, password, power, my_id
         });
         res.status(200).json(user);
     } catch (err) {

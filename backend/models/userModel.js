@@ -25,7 +25,7 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Appoint"
     }],
-    myid:{
+    my_id:{
         type: Number,
         required: true
     }

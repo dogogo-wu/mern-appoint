@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const appointSchema = new Schema({
-    appoint:{
-        type: Schema.Types.ObjectId,
-        ref: "Appoint"
-    },
     time_start: {
         type: String,
         required: true
@@ -14,14 +10,17 @@ const appointSchema = new Schema({
         required: true
     },
     status:{
+        type: Number
+    },
+    prod_id:{
         type: Number,
         required: true
     },
-    userid:{
+    user_id:{
         type: Number,
-        required: true
+        // required: true
     },
-    myid: {
+    my_id: {
         type: Number,
         required: true
     },

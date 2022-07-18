@@ -22,6 +22,7 @@ const ProductForm = () => {
         if (response.ok) {
             setName('')
             console.log('add new product', json);
+            window.location.reload();
         }
     }
     return (

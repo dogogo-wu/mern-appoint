@@ -8,6 +8,9 @@ const productSchema = new Schema({
     img: {
         type: String,
     },
+    describe:{
+        type: String,
+    },
     occupied_time: [{
         start: { type: String },
         end: { type: String }
@@ -22,11 +25,11 @@ const productSchema = new Schema({
         start: { type: String },
         end: { type: String }
     },
-    userid: {
+    user_id: {
         type: Number,
         // required: true
     },
-    myid: {
+    my_id: {
         type: Number,
         required: true
     },

@@ -24,20 +24,20 @@ const getProduct = async (req, res) => {
 const createProduct = async (req, res) => {
     const { name, img, pre_time } = req.body;
 
-    // generate myid (start from 1)
-    var myid = 0;
+    // generate my_id (start from 1)
+    var my_id = 0;
     const item_cnt = await Product.count({});
     if (item_cnt == 0) {
-        myid = 1;
+        my_id = 1;
     } else {
         // get max id
-        const tarobj = await Product.findOne().sort({myid: -1})
-        myid = parseInt(tarobj.myid) + 1
+        const tarobj = await Product.findOne().sort({my_id: -1})
+        my_id = parseInt(tarobj.my_id) + 1
     }
 
     try {
         const product = await Product.create({
-            name, img, pre_time, myid
+            name, img, pre_time, my_id
         });
         res.status(200).json(product);
     } catch (err) {
