@@ -1,5 +1,10 @@
 const User = require('../models/userModel')
 const mongoose = require('mongoose')
+const passport = require("passport");
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Get all items
 const getUsers = async (req, res) => {
@@ -22,7 +27,7 @@ const getUser = async (req, res) => {
 
 // Create one item
 const createUser = async (req, res) => {
-    const { name, email, password, power } = req.body;
+    const { username, password } = req.body;
 
     // generate my_id (start from 1)
     var my_id = 0;
@@ -34,15 +39,17 @@ const createUser = async (req, res) => {
         const tarobj = await User.findOne().sort({ my_id: -1 })
         my_id = parseInt(tarobj.my_id) + 1
     }
+    const power = 1;
 
-    try {
-        const user = await User.create({
-            name, email, password, power, my_id
-        });
-        res.status(200).json(user);
-    } catch (err) {
-        res.status(400).json({ error: err.message })
-    }
+    User.register({username, power, my_id}, password, function(err, user){
+        if(err){
+            res.status(400).json({ error: err.message })
+        }else{
+            passport.authenticate('local')(req, res, function(){
+                res.status(200).json(user);
+            });
+        }
+    });
 }
 
 // Delete one item
@@ -71,4 +78,32 @@ const updateUser = async (req, res) => {
     res.status(200).json(user)
 }
 
-module.exports = { getUsers, getUser, createUser, deleteUser, updateUser }
+const loginFunc = (req, res)=>{
+
+    const user = new User({
+        username: req.body.username,
+        password: req.body.password
+    });
+
+    req.login(user, function(err){
+        if(err){
+            res.status(400).json({ error: err.message })
+        }else{
+            passport.authenticate('local')(req, res, function(){
+                res.status(200).json({mssg: "Login!"})
+            });
+        }
+    });
+}
+
+const logoutFunc = (req, res)=>{
+    req.logout(err=>{
+        if(err){
+            res.status(400).json({ error: err.message })
+        }else{
+            res.status(200).json({mssg: "Logout!"})
+        }
+    });
+}
+
+module.exports = { getUsers, getUser, createUser, deleteUser, updateUser, loginFunc, logoutFunc }

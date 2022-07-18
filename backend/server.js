@@ -2,6 +2,8 @@ require('dotenv').config()
 
 const express = require("express")
 const mongoose = require("mongoose")
+const session = require("express-session");
+const passport = require("passport");
 
 const appointRoutes = require('./routes/appoints')
 const productRoutes = require('./routes/products')
@@ -15,6 +17,16 @@ app.use((req, res, next) => {
     console.log(req.path, req.method);
     next();
 })
+
+// Auth (passport)
+app.use(session({
+    secret: "Our little secret.",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 // Router
 app.use('/api/appoints', appointRoutes)

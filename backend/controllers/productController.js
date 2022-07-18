@@ -3,8 +3,12 @@ const mongoose = require('mongoose')
 
 // Get all items
 const getProducts = async (req, res) => {
-    const products = await Product.find({}).sort({ createdAt: -1 })
-    res.status(200).json(products)
+    if(req.isAuthenticated()){
+        const products = await Product.find({}).sort({ createdAt: -1 })
+        res.status(200).json(products)
+    }
+    // const products = await Product.find({}).sort({ createdAt: -1 })
+    // res.status(200).json(products)
 }
 
 // Get one item
