@@ -39,7 +39,8 @@ const createUser = async (req, res) => {
         const tarobj = await User.findOne().sort({ my_id: -1 })
         my_id = parseInt(tarobj.my_id) + 1
     }
-    const power = 1;
+    // admin: (power == 1) , user: (power == 2)
+    const power = 2;
 
     User.register({username, power, my_id}, password, function(err, user){
         if(err){

@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const productSchema = new Schema({
-    name: {
+    title: {
         type: String,
         required: true
     },
     img: {
         type: String,
     },
-    describe:{
+    content:{
         type: String,
     },
     occupied_time: [{

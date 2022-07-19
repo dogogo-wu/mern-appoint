@@ -1,9 +1,17 @@
 const Appoint = require('../models/appointModel')
+const Product = require('../models/productModel')
 const mongoose = require('mongoose')
+
+const getMyAppoints = async (req, res) => {
+    console.log(req.user.my_id);
+    const appoints = await Appoint.find({ user_id: req.user.my_id }).populate('prod').sort({ createdAt: -1 })
+    console.log(appoints);
+    res.status(200).json(appoints)
+}
 
 // Get all items
 const getAppoints = async (req, res) => {
-    const appoints = await Appoint.find({}).sort({ createdAt: -1 })
+    const appoints = await Appoint.find({}).populate('prod').sort({ createdAt: -1 })
     res.status(200).json(appoints)
 }
 
@@ -31,22 +39,28 @@ const createAppoint = async (req, res) => {
         my_id = 1;
     } else {
         // get max id
-        const tarobj = await Appoint.findOne().sort({my_id: -1})
+        const tarobj = await Appoint.findOne().sort({ my_id: -1 })
         my_id = parseInt(tarobj.my_id) + 1
     }
 
     try {
         const appoint = await Appoint.create({
-            time_start, 
-            time_end, 
-            prod: prod_base_id, 
-            my_id, 
+            time_start,
+            time_end,
+            prod: prod_base_id,
+            my_id,
             user_id: req.user.my_id
         });
 
-        // // Lookup Relation (populate into obj)
-        // const test = await Appoint.find({my_id:my_id}).populate('prod')
-        // console.log(test);
+
+        // Update product occupied_time
+        const prod = await Product.findOneAndUpdate(
+            { _id: prod_base_id },
+            { $push: { occupied_time: { start: time_start, end: time_end } } }
+        )
+        if (!prod) {
+            return res.status(404).json({ error: 'No such item' })
+        }
 
         res.status(200).json(appoint);
     } catch (err) {
@@ -80,4 +94,4 @@ const updateAppoint = async (req, res) => {
     res.status(200).json(appoint)
 }
 
-module.exports = { getAppoints, getAppoint, createAppoint, deleteAppoint, updateAppoint }
+module.exports = { getAppoints, getAppoint, createAppoint, deleteAppoint, updateAppoint, getMyAppoints }

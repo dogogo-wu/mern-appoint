@@ -10,7 +10,7 @@ const {
     loginFunc,
     logoutFunc
 } = require('../controllers/userController')
-const auth = require('../middleware/auth')
+const {auth, isAdmin} = require('../middleware/auth')
 
 
 router.get('/', getUsers)   // un-used
