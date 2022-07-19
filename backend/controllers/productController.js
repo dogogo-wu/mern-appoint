@@ -1,14 +1,17 @@
 const Product = require('../models/productModel')
 const mongoose = require('mongoose')
 
-// Get all items
+
+// // Get All items
+// const getAllProducts = async (req, res) => {
+//     const products = await Product.find({}).sort({ createdAt: -1 })
+//     res.status(200).json(products)
+// }
+
+// Get user items
 const getProducts = async (req, res) => {
-    if(req.isAuthenticated()){
-        const products = await Product.find({}).sort({ createdAt: -1 })
-        res.status(200).json(products)
-    }
-    // const products = await Product.find({}).sort({ createdAt: -1 })
-    // res.status(200).json(products)
+    const products = await Product.find({user_id: req.user.my_id}).sort({ createdAt: -1 })
+    res.status(200).json(products)
 }
 
 // Get one item
@@ -28,20 +31,24 @@ const getProduct = async (req, res) => {
 const createProduct = async (req, res) => {
     const { name, img, pre_time } = req.body;
 
-    // generate my_id (start from 1)
+    // Generate my_id (start from 1)
     var my_id = 0;
     const item_cnt = await Product.count({});
     if (item_cnt == 0) {
         my_id = 1;
     } else {
-        // get max id
-        const tarobj = await Product.findOne().sort({my_id: -1})
+        const tarobj = await Product.findOne().sort({ my_id: -1 })
         my_id = parseInt(tarobj.my_id) + 1
     }
 
+    // Store product
     try {
         const product = await Product.create({
-            name, img, pre_time, my_id
+            name, 
+            img, 
+            pre_time, 
+            my_id, 
+            user_id: req.user.my_id
         });
         res.status(200).json(product);
     } catch (err) {

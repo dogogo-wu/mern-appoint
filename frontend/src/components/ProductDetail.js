@@ -22,7 +22,7 @@ const ProductDetail = ({ product }) => {
             <p>img: {product.img}</p>
             <p>my_id: {product.my_id}</p>
 
-            <AppointForm  prod_id={product.my_id} />
+            <AppointForm  prod_base_id={product._id} />
 
             <button onClick={handleDelete}>Delete</button>
         </div>

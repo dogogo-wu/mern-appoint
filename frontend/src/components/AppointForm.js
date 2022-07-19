@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const AppointForm = ({ prod_id }) => {
+const AppointForm = ({ prod_base_id }) => {
 
     const [start, setStart] = useState('')
     const [end, setEnd] = useState('')
@@ -14,7 +14,7 @@ const AppointForm = ({ prod_id }) => {
     }
     const handleAppoint = async (e) => {
         e.preventDefault()
-        const appoint = { time_start: start, time_end: end, prod_id }
+        const appoint = { time_start: start, time_end: end, prod_base_id }
         const response = await fetch('/api/appoints', {
             method: 'POST',
             body: JSON.stringify(appoint),
@@ -29,6 +29,7 @@ const AppointForm = ({ prod_id }) => {
         if (response.ok) {
             // setName('')
             console.log('add new appoint', json);
+            console.log('prod myid', json.prod.name);
             // window.location.reload();
         }
 

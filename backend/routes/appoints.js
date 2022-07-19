@@ -10,13 +10,9 @@ const {
 
 
 router.get('/', getAppoints)
-
 router.get('/:id', getAppoint)
-
 router.post('/', createAppoint)
-
 router.delete('/:id', deleteAppoint)
-
 router.patch('/:id', updateAppoint)
 
 

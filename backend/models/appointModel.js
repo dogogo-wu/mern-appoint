@@ -12,9 +12,8 @@ const appointSchema = new Schema({
     status:{
         type: Number
     },
-    prod_id:{
-        type: Number,
-        required: true
+    prod:{
+        type: Schema.Types.ObjectId, ref: 'Product'
     },
     user_id:{
         type: Number,

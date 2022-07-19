@@ -22,7 +22,7 @@ const getAppoint = async (req, res) => {
 
 // Create one item
 const createAppoint = async (req, res) => {
-    const { time_start, time_end, prod_id } = req.body;
+    const { time_start, time_end, prod_base_id } = req.body;
 
     // generate my_id (start from 1)
     var my_id = 0;
@@ -37,8 +37,17 @@ const createAppoint = async (req, res) => {
 
     try {
         const appoint = await Appoint.create({
-            time_start, time_end, prod_id, my_id
+            time_start, 
+            time_end, 
+            prod: prod_base_id, 
+            my_id, 
+            user_id: req.user.my_id
         });
+
+        // // Lookup Relation (populate into obj)
+        // const test = await Appoint.find({my_id:my_id}).populate('prod')
+        // console.log(test);
+
         res.status(200).json(appoint);
     } catch (err) {
         res.status(400).json({ error: err.message })
