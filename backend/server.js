@@ -4,6 +4,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const session = require("express-session");
 const passport = require("passport");
+const cors = require('cors')
 
 const appointRoutes = require('./routes/appoints')
 const productRoutes = require('./routes/products')
@@ -12,6 +13,7 @@ const userRoutes = require('./routes/users')
 const app = express()
 
 // Middleware
+app.use(cors())
 app.use(express.json())
 app.use((req, res, next) => {
     console.log(req.path, req.method);

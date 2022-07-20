@@ -6,7 +6,7 @@ const MyAppoint = () => {
 
     useEffect(() => {
         const fetchMyAppoints = async () => {
-            const response = await fetch('/api/appoints/myappoint')
+            const response = await fetch('/api/appoints/my')
             const json = await response.json()
             // console.log(json);
             if (response.ok) {

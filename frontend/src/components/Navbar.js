@@ -28,7 +28,7 @@ const Navbar = ()=>{
                 <Link to="/login">
                     <p>Login</p>
                 </Link>
-                <Link to="/myappoint">
+                <Link to="/myappoint_page">
                     <p>My appoint</p>
                 </Link>
                 <Link to="/allappoint">

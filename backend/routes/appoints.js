@@ -19,7 +19,7 @@ router.post('/',auth, createAppoint)
 router.delete('/:id',isAdmin, deleteAppoint)    
 router.patch('/:id',isAdmin, updateAppoint)
 
-router.get('/myappoint',auth, getMyAppoints)
+router.get('/my',auth, getMyAppoints)
 
 
 module.exports = router
