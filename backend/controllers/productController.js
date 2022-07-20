@@ -24,6 +24,7 @@ const getProduct = async (req, res) => {
 // Create one item
 const createProduct = async (req, res) => {
     const { title, img, content } = req.body;
+    console.log(req.body);
 
     // Generate my_id (start from 1)
     var my_id = 0;

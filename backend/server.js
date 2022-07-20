@@ -8,13 +8,15 @@ const cors = require('cors')
 
 const appointRoutes = require('./routes/appoints')
 const productRoutes = require('./routes/products')
-const userRoutes = require('./routes/users')
+const userRoutes = require('./routes/users');
+const { urlencoded } = require('express');
 
 const app = express()
 
 // Middleware
 app.use(cors())
-app.use(express.json())
+app.use(express.json({limit:"10mb", extended: true}))
+app.use(express.urlencoded({limit:"10mb", extended: true}))
 app.use((req, res, next) => {
     console.log(req.path, req.method);
     next();

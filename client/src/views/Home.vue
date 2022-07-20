@@ -1,24 +1,29 @@
 <template>
   <div class="home">
-    <h1 class="text-6xl">Hello</h1>
-    <div v-for="item in products" :key="item._id">
-      <p>{{item.title}}</p>
-
+    <h1 class="text-5xl mb-4">All Products</h1>
+    <div class="flex justify-around flex-wrap">
+      <div v-for="item in products" :key="item._id">
+        <ProductCard :product="item" />
+      </div>
     </div>
+    <ProductForm />
   </div>
 </template>
 
 <script>
-import {ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
+import ProductCard from "../components/ProductCard.vue";
+import ProductForm from "../components/ProductForm.vue"
 
 export default {
-  name: "Home",
+  components: { ProductCard, ProductForm },
   setup() {
     const products = ref(null);
 
-
     onMounted(async () => {
-      const response = await fetch("http://localhost:4000/api/products");
+      const response = await fetch(
+        process.env.VUE_APP_BACKEND_LOCAL + "/api/products"
+      );
       const json = await response.json();
       // console.log(json);
       if (response.ok) {
@@ -26,7 +31,7 @@ export default {
       }
     });
 
-    return {products}
+    return { products };
   },
 };
 </script>
