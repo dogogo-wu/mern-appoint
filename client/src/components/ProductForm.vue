@@ -22,7 +22,6 @@ export default {
   setup() {
     const myform = ref(null);
     const handleSubmit = () => {
-      console.log(myform.value);
       var formData = new FormData(myform.value);
 
       const createProd = async () => {

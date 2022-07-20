@@ -5,7 +5,19 @@ const mongoose = require('mongoose')
 // Get all items
 const getProducts = async (req, res) => {
     const products = await Product.find({}).sort({ createdAt: -1 })
-    res.status(200).json(products)
+
+    // var options = {
+    //     headers: {
+    //         'x-timestamp': Date.now(),
+    //         'x-sent': true,
+    //         'name': 'MattDionis',
+    //         'origin': 'stackoverflow'
+    //     }
+    // };
+    // res.status(200).sendFile(path.join(__dirname, '../assets', 'index.html'), options);
+
+    
+    res.status(200).json(products).sendFile
 }
 
 // Get one item
@@ -23,8 +35,10 @@ const getProduct = async (req, res) => {
 
 // Create one item
 const createProduct = async (req, res) => {
-    const { title, img, content } = req.body;
-    console.log(req.body);
+
+    const img_path = req.file.path
+    const { title, content } = req.body;
+    console.log(img_path);
 
     // Generate my_id (start from 1)
     var my_id = 0;
@@ -39,10 +53,10 @@ const createProduct = async (req, res) => {
     // Store product
     try {
         const product = await Product.create({
-            title, 
-            img, 
-            content, 
-            my_id, 
+            title,
+            img: img_path,
+            content,
+            my_id,
             user_id: req.user.my_id
         });
         res.status(200).json(product);
