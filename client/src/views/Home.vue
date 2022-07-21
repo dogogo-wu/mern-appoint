@@ -6,17 +6,16 @@
         <ProductCard :product="item" />
       </div>
     </div>
-    <ProductForm />
+    
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
 import ProductCard from "../components/ProductCard.vue";
-import ProductForm from "../components/ProductForm.vue"
 
 export default {
-  components: { ProductCard, ProductForm },
+  components: { ProductCard},
   setup() {
     const products = ref(null);
 

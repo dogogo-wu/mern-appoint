@@ -85,7 +85,6 @@ const loginFunc = (req, res)=>{
         username: req.body.username,
         password: req.body.password
     });
-
     req.login(user, function(err){
         if(err){
             res.status(400).json({ error: err.message })

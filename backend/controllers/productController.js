@@ -36,9 +36,15 @@ const getProduct = async (req, res) => {
 // Create one item
 const createProduct = async (req, res) => {
 
-    const img_path = req.file.path
-    const { title, content } = req.body;
-    console.log(img_path);
+    // if (req.file) {
+    //     const img_path = req.file.path
+    //     console.log(img_path);
+    // }else{
+    //     const img_path = ''
+    // }
+    // const { title, content } = req.body;
+
+    const { title,img, content } = req.body;
 
     // Generate my_id (start from 1)
     var my_id = 0;
@@ -54,10 +60,11 @@ const createProduct = async (req, res) => {
     try {
         const product = await Product.create({
             title,
-            img: img_path,
+            img,
             content,
             my_id,
-            user_id: req.user.my_id
+            // user_id: req.user.my_id
+            user_id: 0
         });
         res.status(200).json(product);
     } catch (err) {

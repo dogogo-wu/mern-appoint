@@ -14,6 +14,7 @@ const isAdmin = (req, res, next) =>{
         next();
     }else{
         console.log("Access Denied");
+        console.log(req.user);
     }
     // return res.redirect(403, "/error");
 }
