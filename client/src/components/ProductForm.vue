@@ -1,28 +1,29 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form
+    ref="myform"
+    @submit.prevent="handleSubmit"
+    enctype="multipart/form-data"
+  >
     <h3 class="text-lg font-bold mb-4">Add a New Product</h3>
-
     <div class="flex flex-col justify-center">
-      <label for="title">Name: </label>
-      <input
-        type="text"
-        v-model="title"
-        class="myinput"
-        id="title"
-        name="title"
-        required
-      />
-      <label for="img">Image: </label>
-      <input type="text" v-model="img" class="myinput" id="img" name="img" />
-      <label for="content">Describe: </label>
-      <input
-        type="text"
-        v-model="content"
-        class="myinput"
-        id="content"
-        name="content"
-        required
-      />
+      <div>
+        <label for="title">Name: </label>
+        <input class="myinput" type="text" id="title" name="title" required />
+      </div>
+      <div>
+        <label for="img">Image: </label>
+        <input
+          class="myinput"
+          type="file"
+          id="img"
+          name="img"
+          accept="image/*"
+        />
+      </div>
+      <div>
+        <label for="content">Describe: </label>
+        <input class="myinput" type="text" name="content" required />
+      </div>
     </div>
 
     <button class="mybtn">Add Product</button>
@@ -31,43 +32,38 @@
 </template>
 
 <script>
-import { ref } from "@vue/reactivity";
+import { ref } from "vue";
 import router from "../router/index";
 export default {
   setup() {
-    const title = ref("");
-    const img = ref("");
-    const content = ref("");
+    const myform = ref(null);
     const error = ref(null);
+    const handleSubmit = () => {
+      var formData = new FormData(myform.value);
 
-    const handleSubmit = async () => {
-      const product = {
-        title: title.value,
-        img: img.value,
-        content: content.value,
-      };
-      const response = await fetch(
-        process.env.VUE_APP_BACKEND_LOCAL + "/api/products",
-        {
-          method: "POST",
-          body: JSON.stringify(product),
-          headers: {
-            "Content-Type": "application/json",
-          },
+      const createProd = async () => {
+        try {
+          await fetch(process.env.VUE_APP_BACKEND_LOCAL + "/api/products", {
+            method: "POST",
+            body: formData,
+          });
+          myform.value.reset();
+          console.log("add new product");
+          router.push("/");
+        } catch (err) {
+          console.log(err);
+          error.value = err;
         }
-      );
-      const json = await response.json();
-      if (!response.ok) {
-        console.log(json.error);
-        error.value = json.error;
-      }
-      if (response.ok) {
-        console.log("add new product", json);
-        router.push("/");
-      }
+      };
+      createProd();
     };
 
-    return { title, img, content, handleSubmit, error };
+    return { myform, handleSubmit };
   },
 };
 </script>
+
+
+<style lang="postcss">
+
+</style>

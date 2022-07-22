@@ -1,22 +1,12 @@
 const Product = require('../models/productModel')
 const mongoose = require('mongoose')
-
+const fs = require('fs');
+const {Base64} = require('js-base64');
 
 // Get all items
 const getProducts = async (req, res) => {
     const products = await Product.find({}).sort({ createdAt: -1 })
 
-    // var options = {
-    //     headers: {
-    //         'x-timestamp': Date.now(),
-    //         'x-sent': true,
-    //         'name': 'MattDionis',
-    //         'origin': 'stackoverflow'
-    //     }
-    // };
-    // res.status(200).sendFile(path.join(__dirname, '../assets', 'index.html'), options);
-
-    
     res.status(200).json(products).sendFile
 }
 
@@ -36,15 +26,21 @@ const getProduct = async (req, res) => {
 // Create one item
 const createProduct = async (req, res) => {
 
-    // if (req.file) {
-    //     const img_path = req.file.path
-    //     console.log(img_path);
-    // }else{
-    //     const img_path = ''
-    // }
-    // const { title, content } = req.body;
+    const { title, content } = req.body;
+    var img = fs.readFileSync(req.file.path);
 
-    const { title,img, content } = req.body;
+    var finalImg = {
+        contentType: req.file.mimetype,
+        image:  Base64.encode(img)
+    };
+
+    // Delete upload file on server
+    try {
+        fs.unlinkSync(req.file.path);
+        console.log("File on Server is deleted.");
+    } catch (error) {
+        console.log(error);
+    }
 
     // Generate my_id (start from 1)
     var my_id = 0;
@@ -60,7 +56,7 @@ const createProduct = async (req, res) => {
     try {
         const product = await Product.create({
             title,
-            img,
+            img:finalImg,
             content,
             my_id,
             // user_id: req.user.my_id

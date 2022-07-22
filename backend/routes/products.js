@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
-// var multer  = require('multer')
-// var upload = multer({ dest: 'uploads/' })
+var multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 const {
     getProducts,
@@ -15,8 +15,8 @@ const {auth, isAdmin} = require("../middleware/auth")
 
 router.get('/', getProducts)
 router.get('/:id', auth, getProduct)     // un-used
-router.post('/', createProduct)
-// router.post('/',upload.single('img'), createProduct)
+// router.post('/', createProduct)
+router.post('/',upload.single('img'), createProduct)    // multer
 router.delete('/:id', deleteProduct)
 router.patch('/:id', isAdmin, updateProduct)    // un-used
 

@@ -6,9 +6,11 @@ const productSchema = new Schema({
         required: true
     },
     img: {
-        type: String,
+        // type: String,
+        contentType: { type: String },
+        image: { type: String }
     },
-    content:{
+    content: {
         type: String,
     },
     occupied_time: [{
@@ -21,7 +23,7 @@ const productSchema = new Schema({
     longest_appoint_time: {
         type: String,
     },
-    available_duration:{
+    available_duration: {
         start: { type: String },
         end: { type: String }
     },
