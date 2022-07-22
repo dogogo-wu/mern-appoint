@@ -40,7 +40,7 @@ export default {
     const handleLogin = async () => {
       const user = { username: email.value, password: password.value };
       const response = await fetch(
-        process.env.VUE_APP_BACKEND_LOCAL + "/api/users/login",
+        process.env.VUE_APP_BACKEND_LOCAL + "/api/user/login",
         {
           method: "POST",
           body: JSON.stringify(user),

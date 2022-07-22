@@ -25,9 +25,13 @@
 </template>
 
 <script>
+import {useMyStore} from '../stores/myStore'
+
 export default {
   props: ["product"],
   setup(props){
+
+    const myStore =useMyStore();
     const handleDelete =async ()=>{
         const response = await fetch(process.env.VUE_APP_BACKEND_LOCAL +'/api/products/' + props.product._id, {
             method: 'DELETE'
@@ -37,8 +41,9 @@ export default {
             console.log(json.error)
         }
         if (response.ok) {
+            myStore.deleteProd(props.product._id)
             console.log('Delete one product', json);
-            window.location.reload();
+            // window.location.reload();
         }
     }
     return {handleDelete}

@@ -8,7 +8,7 @@ const cors = require('cors')
 
 const appointRoutes = require('./routes/appoints')
 const productRoutes = require('./routes/products')
-const userRoutes = require('./routes/users');
+const userRoutes = require('./routes/user');
 // const { urlencoded } = require('express');
 
 const app = express()
@@ -35,7 +35,7 @@ app.use(passport.session());
 // Router
 app.use('/api/appoints', appointRoutes)
 app.use('/api/products', productRoutes)
-app.use('/api/users', userRoutes)
+app.use('/api/user', userRoutes)
 
 // Connect to mongoDB and Listen port
 mongoose.connect(process.env.MONG_LOCAL)

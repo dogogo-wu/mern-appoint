@@ -4,32 +4,48 @@
 
     <div class="flex flex-col justify-center">
       <label for="title">Name: </label>
-      <input type="text" v-model="title" class="myinput" id="title" name="title" required />
+      <input
+        type="text"
+        v-model="title"
+        class="myinput"
+        id="title"
+        name="title"
+        required
+      />
       <label for="img">Image: </label>
-      <input type="text" v-model="img" class="myinput" id="img" name="img"/>
+      <input type="text" v-model="img" class="myinput" id="img" name="img" />
       <label for="content">Describe: </label>
-      <input type="text" v-model="content" class="myinput" id="content" name="content" required />
+      <input
+        type="text"
+        v-model="content"
+        class="myinput"
+        id="content"
+        name="content"
+        required
+      />
     </div>
 
     <button class="mybtn">Add Product</button>
-    <p v-if="error">{{error}}</p>
+    <p v-if="error">{{ error }}</p>
   </form>
 </template>
 
 <script>
 import { ref } from "@vue/reactivity";
+import router from "../router/index";
 export default {
   setup() {
     const title = ref("");
     const img = ref("");
     const content = ref("");
-    const error = ref(null)
+    const error = ref(null);
 
     const handleSubmit = async () => {
       const product = {
-        title:title.value, 
-        img:img.value ,
-        content: content.value};
+        title: title.value,
+        img: img.value,
+        content: content.value,
+      };
       const response = await fetch(
         process.env.VUE_APP_BACKEND_LOCAL + "/api/products",
         {
@@ -43,10 +59,11 @@ export default {
       const json = await response.json();
       if (!response.ok) {
         console.log(json.error);
-        error.value = json.error
+        error.value = json.error;
       }
       if (response.ok) {
         console.log("add new product", json);
+        router.push("/");
       }
     };
 
