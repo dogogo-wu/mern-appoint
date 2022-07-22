@@ -51,9 +51,6 @@ export default {
         // window.location.reload();
       }
     };
-    const myimg = computed(() => {
-      // return Buffer.from(props.product.img.image.split(",")[1],"base64")
-    });
     return { handleDelete, myimg };
   },
 };
