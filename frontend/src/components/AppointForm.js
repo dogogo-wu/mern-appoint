@@ -29,7 +29,6 @@ const AppointForm = ({ prod_base_id }) => {
         if (response.ok) {
             // setName('')
             console.log('add new appoint', json);
-            console.log('prod myid', json.prod.name);
             // window.location.reload();
         }
 

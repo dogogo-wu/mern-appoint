@@ -6,27 +6,9 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Get all items
-const getUsers = async (req, res) => {
-    const users = await User.find({}).sort({ createdAt: -1 })
-    res.status(200).json(users)
-}
-
-// Get one item
-const getUser = async (req, res) => {
-    const { id } = req.params
-    if (!(mongoose.Types.ObjectId.isValid(id))) {
-        return res.status(404).json({ error: 'No such item' })
-    }
-    const user = await User.findById(id)
-    if (!user) {
-        return res.status(404).json({ error: 'No such item' })
-    }
-    res.status(200).json(user)
-}
 
 // Create one item
-const createUser = async (req, res) => {
+const signupFunc = async (req, res) => {
     const { username, password } = req.body;
 
     // generate my_id (start from 1)
@@ -39,7 +21,8 @@ const createUser = async (req, res) => {
         const tarobj = await User.findOne().sort({ my_id: -1 })
         my_id = parseInt(tarobj.my_id) + 1
     }
-    const power = 1;
+    // admin: (power == 1) , user: (power == 2)
+    const power = 2;
 
     User.register({username, power, my_id}, password, function(err, user){
         if(err){
@@ -52,39 +35,12 @@ const createUser = async (req, res) => {
     });
 }
 
-// Delete one item
-const deleteUser = async (req, res) => {
-    const { id } = req.params
-    if (!(mongoose.Types.ObjectId.isValid(id))) {
-        return res.status(404).json({ error: 'No such item' })
-    }
-    const user = await User.findOneAndDelete({ _id: id })
-    if (!user) {
-        return res.status(404).json({ error: 'No such item' })
-    }
-    res.status(200).json(user)
-}
-
-// Update one item
-const updateUser = async (req, res) => {
-    const { id } = req.params
-    if (!(mongoose.Types.ObjectId.isValid(id))) {
-        return res.status(404).json({ error: 'No such item' })
-    }
-    const user = await User.findOneAndUpdate({ _id: id }, { ...req.body })
-    if (!user) {
-        return res.status(404).json({ error: 'No such item' })
-    }
-    res.status(200).json(user)
-}
-
 const loginFunc = (req, res)=>{
 
     const user = new User({
         username: req.body.username,
         password: req.body.password
     });
-
     req.login(user, function(err){
         if(err){
             res.status(400).json({ error: err.message })
@@ -106,4 +62,4 @@ const logoutFunc = (req, res)=>{
     });
 }
 
-module.exports = { getUsers, getUser, createUser, deleteUser, updateUser, loginFunc, logoutFunc }
+module.exports = {signupFunc, loginFunc, logoutFunc }

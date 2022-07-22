@@ -18,8 +18,9 @@ const ProductDetail = ({ product }) => {
     }
     return (
         <div>
-            <p>Item: {product.name}</p>
-            <p>img: {product.img}</p>
+            <p>Product: {product.title}</p>
+            <p>Image: {product.img}</p>
+            <p>Describe: {product.content}</p>
             <p>my_id: {product.my_id}</p>
 
             <AppointForm  prod_base_id={product._id} />

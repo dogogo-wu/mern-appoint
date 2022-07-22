@@ -1,17 +1,13 @@
 const Product = require('../models/productModel')
 const mongoose = require('mongoose')
+const fs = require('fs');
+const {Base64} = require('js-base64');
 
-
-// // Get All items
-// const getAllProducts = async (req, res) => {
-//     const products = await Product.find({}).sort({ createdAt: -1 })
-//     res.status(200).json(products)
-// }
-
-// Get user items
+// Get all items
 const getProducts = async (req, res) => {
-    const products = await Product.find({user_id: req.user.my_id}).sort({ createdAt: -1 })
-    res.status(200).json(products)
+    const products = await Product.find({}).sort({ createdAt: -1 })
+
+    res.status(200).json(products).sendFile
 }
 
 // Get one item
@@ -29,7 +25,22 @@ const getProduct = async (req, res) => {
 
 // Create one item
 const createProduct = async (req, res) => {
-    const { name, img, pre_time } = req.body;
+
+    const { title, content } = req.body;
+    var img = fs.readFileSync(req.file.path);
+
+    var finalImg = {
+        contentType: req.file.mimetype,
+        image:  Base64.encode(img)
+    };
+
+    // Delete upload file on server
+    try {
+        fs.unlinkSync(req.file.path);
+        console.log("File on Server is deleted.");
+    } catch (error) {
+        console.log(error);
+    }
 
     // Generate my_id (start from 1)
     var my_id = 0;
@@ -44,11 +55,12 @@ const createProduct = async (req, res) => {
     // Store product
     try {
         const product = await Product.create({
-            name, 
-            img, 
-            pre_time, 
-            my_id, 
-            user_id: req.user.my_id
+            title,
+            img:finalImg,
+            content,
+            my_id,
+            // user_id: req.user.my_id
+            user_id: 0
         });
         res.status(200).json(product);
     } catch (err) {

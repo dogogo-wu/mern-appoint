@@ -28,6 +28,12 @@ const Navbar = ()=>{
                 <Link to="/login">
                     <p>Login</p>
                 </Link>
+                <Link to="/myappoint_page">
+                    <p>My appoint</p>
+                </Link>
+                <Link to="/allappoint">
+                    <p>All appoint</p>
+                </Link>
 
                 <button onClick={handleLogout}>Logout</button>
             </div>
