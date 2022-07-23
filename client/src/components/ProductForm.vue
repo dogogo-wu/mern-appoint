@@ -18,6 +18,7 @@
           id="img"
           name="img"
           accept="image/*"
+          required
         />
       </div>
       <div>

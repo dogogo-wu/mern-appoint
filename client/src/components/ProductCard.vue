@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center">
+  <div class="flex justify-center m-4">
     <div class="rounded-lg shadow-lg bg-white max-w-sm">
       <img
         class="rounded-t-lg w-80 h-48 object-cover"
@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import { computed } from "vue-demi";
 import { useMyStore } from "../stores/myStore";
 
 export default {
@@ -51,7 +50,7 @@ export default {
         // window.location.reload();
       }
     };
-    return { handleDelete, myimg };
+    return { handleDelete };
   },
 };
 </script>
