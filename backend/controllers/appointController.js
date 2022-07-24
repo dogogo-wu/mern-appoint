@@ -30,13 +30,14 @@ const getAppoint = async (req, res) => {
 
 // Create one item
 const createAppoint = async (req, res) => {
-    const { time_start, time_end, prod_base_id } = req.body;
+    const { start, end, prod_base_id } = req.body;
 
     // generate my_id (start from 1)
     var my_id = 0;
     const item_cnt = await Appoint.count({});
     if (item_cnt == 0) {
         my_id = 1;
+        console.log('Hello');
     } else {
         // get max id
         const tarobj = await Appoint.findOne().sort({ my_id: -1 })
@@ -45,18 +46,18 @@ const createAppoint = async (req, res) => {
 
     try {
         const appoint = await Appoint.create({
-            time_start,
-            time_end,
+            start,
+            end,
             prod: prod_base_id,
             my_id,
-            user_id: req.user.my_id
+            // user_id: req.user.my_id
         });
 
 
         // Update product occupied_time
         const prod = await Product.findOneAndUpdate(
             { _id: prod_base_id },
-            { $push: { occupied_time: { start: time_start, end: time_end } } }
+            { $push: { occupied_time: { start, end } } }
         )
         if (!prod) {
             return res.status(404).json({ error: 'No such item' })

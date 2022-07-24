@@ -16,6 +16,7 @@
         </div>
       </div>
 
+      <!-- Move to a new component -->
       <form @submit.prevent="handleSubmit">
         <div class="mt-4">
           <p>開始時間</p>
@@ -42,6 +43,7 @@
 <script setup>
 import { useMyStore } from "../stores/myStore";
 import { onMounted, ref } from "vue-demi";
+import router from "../router/index";
 
 const props = defineProps({
   id: String,
@@ -72,9 +74,31 @@ onMounted(() => {
   product.value = myStore.products.find((data) => data._id === props.id);
 });
 
-const handleSubmit = () => {
-  console.log(date_st.value, time_st.value);
-  console.log(date_end.value, time_end.value);
+const handleSubmit = async () => {
+  // convert to yyyy-mm-ddThh:mm (same as datetime input)
+  const start = date_st.value + "T" + time_st.value;
+  const end = date_end.value + "T" + time_end.value;
+
+  const appoint = { start, end, prod_base_id: props.id };
+  const response = await fetch(
+    process.env.VUE_APP_BACKEND_LOCAL + "/api/appoints",
+    {
+      method: "POST",
+      body: JSON.stringify(appoint),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const json = await response.json();
+  if (!response.ok) {
+    console.log(json.error);
+  }
+  if (response.ok) {
+    console.log("add new appoint", json);
+    alert("Add a new appointment!");
+    router.push("/");
+  }
 };
 </script>
 
