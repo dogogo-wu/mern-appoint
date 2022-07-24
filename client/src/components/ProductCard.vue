@@ -15,7 +15,7 @@
           <p>prod_id: {{ product.my_id }}</p>
         </div>
 
-        <button class="appoint-btn m-4">預約</button>
+        <button class="appoint-btn m-4" @click="handleAppoint">預約</button>
         <button class="appoint-btn m-4 bg-red-500" @click="handleDelete">
           Delete
         </button>
@@ -26,9 +26,10 @@
 
 <script>
 import { useMyStore } from "../stores/myStore";
+import router from "../router/index";
 
 export default {
-  props: ["product"],
+  props: ["product", "id"],
   setup(props) {
     const myStore = useMyStore();
     const handleDelete = async () => {
@@ -47,10 +48,12 @@ export default {
       if (response.ok) {
         myStore.deleteProd(props.product._id);
         console.log("Delete one product", json);
-        // window.location.reload();
       }
     };
-    return { handleDelete };
+    const handleAppoint = async () => {
+      router.push("/appoint/" + props.product._id);
+    };
+    return { handleDelete, handleAppoint };
   },
 };
 </script>

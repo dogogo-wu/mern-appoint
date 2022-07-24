@@ -59,7 +59,7 @@ export default {
       createProd();
     };
 
-    return { myform, handleSubmit };
+    return { myform, handleSubmit, error };
   },
 };
 </script>

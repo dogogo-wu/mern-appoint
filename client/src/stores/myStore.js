@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 
 export const useMyStore = defineStore({
-  id: 'counter',
+  id: 'mystore',
   state: () => {
     return { 
-        products: []
+        products: [],
     }
   },
   actions: {
