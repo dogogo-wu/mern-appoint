@@ -37,14 +37,14 @@ const createProduct = async (req, res) => {
     // Delete upload file on server
     try {
         fs.unlinkSync(req.file.path);
-        console.log("File on Server is deleted.");
+        console.log("File on Server is removed.");
     } catch (error) {
         console.log(error);
     }
 
     // Generate my_id (start from 1)
     var my_id = 0;
-    const item_cnt = await Product.count({});
+    const item_cnt = await Product.countDocuments({});
     if (item_cnt == 0) {
         my_id = 1;
     } else {

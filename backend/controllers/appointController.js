@@ -34,7 +34,7 @@ const createAppoint = async (req, res) => {
 
     // generate my_id (start from 1)
     var my_id = 0;
-    const item_cnt = await Appoint.count({});
+    const item_cnt = await Appoint.countDocuments({});
     if (item_cnt == 0) {
         my_id = 1;
         console.log('Hello');

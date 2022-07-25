@@ -12,10 +12,8 @@
 
 <script setup>
 import { onMounted, ref } from "vue-demi";
-import { useMyStore } from "../stores/myStore";
 import AppointCard from '../components/AppointCard.vue'
 
-const myStore = useMyStore();
 var appoints = ref(null);
 
 onMounted(async () => {
