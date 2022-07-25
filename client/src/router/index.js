@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView'
-import CreateView from '../views/CreateView.vue'
+import ProdCreate from '../views/ProdCreate.vue'
 import LoginView from '../views/LoginView.vue'
-import AppointView from '../views/AppointView.vue'
+import AppointCreate from '../views/AppointCreate.vue'
+import AppointShow from '../views/AppointShow.vue'
 
 const routes = [
   {
@@ -13,12 +14,16 @@ const routes = [
   {
     path: '/create',
     name: 'Create',
-    component: CreateView
+    component: ProdCreate
   },
   {
     path: '/appoint/:id',
-    component: AppointView,
+    component: AppointCreate,
     props: true
+  },
+  {
+    path: '/myappoint',
+    component: AppointShow,
   },
   {
     path: '/login',

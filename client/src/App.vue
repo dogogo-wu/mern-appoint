@@ -3,6 +3,7 @@
     <nav class="bg-gray-200">
       <router-link to="/">Home</router-link> |
       <router-link to="/create">Create</router-link> |
+      <router-link to="/myappoint">My Appoint</router-link> |
       <router-link to="/login">Login</router-link>
     </nav>
     <router-view class="bg-gray-100 p-16" />

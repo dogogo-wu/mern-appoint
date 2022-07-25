@@ -2,11 +2,11 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const appointSchema = new Schema({
     start: {
-        type: String,
+        type: Date,
         required: true
     },
     end: {
-        type: String,
+        type: Date,
         required: true
     },
     status:{

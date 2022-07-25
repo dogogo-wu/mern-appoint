@@ -76,8 +76,11 @@ onMounted(() => {
 
 const handleSubmit = async () => {
   // convert to yyyy-mm-ddThh:mm (same as datetime input)
-  const start = date_st.value + "T" + time_st.value;
-  const end = date_end.value + "T" + time_end.value;
+  const start = new Date(date_st.value + "T" + time_st.value);
+  const end = new Date(date_end.value + "T" + time_end.value);
+
+  console.log(start);
+  console.log(end);
 
   const appoint = { start, end, prod_base_id: props.id };
   const response = await fetch(

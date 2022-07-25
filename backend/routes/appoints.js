@@ -13,8 +13,8 @@ const {
 } = require('../controllers/appointController')
 
 
-router.get('/',isAdmin, getAppoints)
-router.get('/:id',isAdmin, getAppoint)
+router.get('/', getAppoints)
+router.get('/:id', getAppoint)
 router.post('/', createAppoint)
 router.delete('/:id',isAdmin, deleteAppoint)    
 router.patch('/:id',isAdmin, updateAppoint)
