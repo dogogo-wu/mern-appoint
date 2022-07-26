@@ -4,14 +4,14 @@ const mongoose = require('mongoose')
 
 const getMyAppoints = async (req, res) => {
     console.log(req.user.my_id);
-    const appoints = await Appoint.find({ user_id: req.user.my_id }).populate('prod').sort({ createdAt: -1 })
+    const appoints = await Appoint.find({ user_id: req.user.my_id }).populate('prod').sort({ createdAt: 1 })
     console.log(appoints);
     res.status(200).json(appoints)
 }
 
 // Get all items
 const getAppoints = async (req, res) => {
-    const appoints = await Appoint.find({}).populate('prod').sort({ createdAt: -1 })
+    const appoints = await Appoint.find({}).populate('prod').sort({ createdAt: 1 })
     res.status(200).json(appoints)
 }
 
@@ -37,7 +37,6 @@ const createAppoint = async (req, res) => {
     const item_cnt = await Appoint.countDocuments({});
     if (item_cnt == 0) {
         my_id = 1;
-        console.log('Hello');
     } else {
         // get max id
         const tarobj = await Appoint.findOne().sort({ my_id: -1 })
