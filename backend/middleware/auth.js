@@ -1,11 +1,12 @@
 
 
 const auth = (req, res, next)=>{
-
+    console.log(req.isAuthenticated());
     if(req.isAuthenticated()){
         next();
     }else{
         console.log("Access Denied");
+        console.log(req.user);
     }
 }
 

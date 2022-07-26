@@ -6,11 +6,13 @@ const productSchema = new Schema({
         required: true
     },
     img: {
-        // type: String,
         contentType: { type: String },
         image: { type: String }
     },
     content: {
+        type: String,
+    },
+    location:{
         type: String,
     },
     occupied_time: [{

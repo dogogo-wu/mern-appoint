@@ -58,7 +58,28 @@ export default {
       }
     };
 
-    return { email, password, handleLogin, error };
+    const handleSignup = async () => {
+      const user = { username: email.value, password: password.value };
+      const response = await fetch(
+        process.env.VUE_APP_BACKEND_LOCAL + "/api/user/signup",
+        {
+          method: "POST",
+          body: JSON.stringify(user),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const json = await response.json();
+      if (!response.ok) {
+        error.value = json.error;
+      }
+      if (response.ok) {
+        console.log("add new user", json);
+      }
+    };
+
+    return { email, password, handleLogin,handleSignup, error };
   },
 };
 </script>
@@ -86,6 +107,6 @@ export default {
           text-white text-sm
           font-medium
           rounded-full
-          font-semibold
+          font-semibold;
 }
 </style>
