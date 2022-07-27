@@ -38,7 +38,7 @@ export default {
     const error = ref(null);
 
     const handleLogin = async () => {
-      const user = { username: email.value, password: password.value };
+      const user = { email: email.value, password: password.value };
       const response = await fetch(
         process.env.VUE_APP_BACKEND_LOCAL + "/api/user/login",
         {
@@ -59,7 +59,7 @@ export default {
     };
 
     const handleSignup = async () => {
-      const user = { username: email.value, password: password.value };
+      const user = { email: email.value, password: password.value };
       const response = await fetch(
         process.env.VUE_APP_BACKEND_LOCAL + "/api/user/signup",
         {

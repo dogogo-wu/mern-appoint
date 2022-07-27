@@ -13,9 +13,8 @@ const {
 const {auth, isAdmin} = require("../middleware/auth")
 
 
-router.get('/',auth, getProducts)
+router.get('/', getProducts)
 router.get('/:id', getProduct)     // un-used
-// router.post('/', createProduct)
 router.post('/',upload.single('img'), createProduct)    // multer
 router.delete('/:id', deleteProduct)
 router.patch('/:id', isAdmin, updateProduct)    // un-used
