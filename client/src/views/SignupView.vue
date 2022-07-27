@@ -1,7 +1,7 @@
 <template>
   <div>
-    <form @submit.prevent="handleLogin" class="border rounded-xl bg-white">
-      <h3 class="text-lg m-4 font-bold">Login</h3>
+    <form @submit.prevent="handleSignup" class="border rounded-xl bg-white">
+      <h3 class="text-lg m-4 font-bold">Signup</h3>
       <div>
         <label>Email: </label>
         <input
@@ -22,7 +22,7 @@
           required
         />
       </div>
-      <button class="mybtn">Login</button>
+      <button class="mybtn">Signup</button>
       <div>{{ error }}</div>
     </form>
   </div>
@@ -41,10 +41,10 @@ export default {
 
     const error = ref(null);
 
-    const handleLogin = async () => {
+    const handleSignup = async () => {
       const user = { email: email.value, password: password.value };
       const response = await fetch(
-        process.env.VUE_APP_BACKEND_LOCAL + "/api/user/login",
+        process.env.VUE_APP_BACKEND_LOCAL + "/api/user/signup",
         {
           method: "POST",
           body: JSON.stringify(user),
@@ -58,40 +58,14 @@ export default {
         error.value = json.error;
       }
       if (response.ok) {
-        console.log("user login", json);
+        console.log("add new user", json);
         mystore.user = json;
+
         router.push('/')
       }
     };
 
-    return { email, password, handleLogin, error };
+    return { email, password, handleSignup, error };
   },
 };
 </script>
-
-<style lang="postcss">
-.myinput {
-  @apply w-1/2
-        py-2
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        my-4
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none;
-}
-.mybtn {
-  @apply px-4
-          py-2
-          bg-blue-500
-          hover:bg-blue-600
-          text-white text-sm
-          font-medium
-          rounded-full
-          font-semibold;
-}
-</style>

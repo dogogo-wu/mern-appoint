@@ -10,10 +10,10 @@ const {
     deleteProduct,
     updateProduct
 } = require('../controllers/productController')
-const {auth, isAdmin} = require("../middleware/auth")
+const {isAuth, isAdmin} = require("../middleware/auth")
 
 
-router.get('/', getProducts)
+router.get('/',  getProducts)
 router.get('/:id', getProduct)     // un-used
 router.post('/',upload.single('img'), createProduct)    // multer
 router.delete('/:id', deleteProduct)

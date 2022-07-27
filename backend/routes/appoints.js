@@ -1,7 +1,7 @@
 const express  = require("express")
 const router = express.Router()
 
-const {auth, isAdmin} = require('../middleware/auth')
+const {isAuth, isAdmin} = require('../middleware/auth')
 
 const {
     getAppoints, 
@@ -13,13 +13,13 @@ const {
 } = require('../controllers/appointController')
 
 
-router.get('/', getAppoints)
+router.get('/',isAuth, getAppoints)
 router.get('/:id', getAppoint)
 router.post('/', createAppoint)
 router.delete('/:id',isAdmin, deleteAppoint)    
 router.patch('/:id',isAdmin, updateAppoint)
 
-router.get('/my',auth, getMyAppoints)
+router.get('/my',isAuth, getMyAppoints)
 
 
 module.exports = router

@@ -6,11 +6,11 @@ const {
     loginFunc,
     logoutFunc
 } = require('../controllers/userController')
-const {auth, isAdmin} = require('../middleware/auth')
+const {isAuth, isAdmin} = require('../middleware/auth')
 
 router.post('/signup', signupFunc)
 
 router.post('/login', loginFunc)
-router.post('/logout', auth, logoutFunc)
+router.post('/logout', isAuth, logoutFunc)
 
 module.exports = router
