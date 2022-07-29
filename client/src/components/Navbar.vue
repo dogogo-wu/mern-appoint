@@ -27,7 +27,7 @@ import { useMyStore } from "../stores/myStore";
 
 const mystore = useMyStore();
 const handleLogout = () => {
-  localStorage.removeItem("user");
+  localStorage.removeItem("appointuser");
   mystore.user = null;
   router.push("/");
 };

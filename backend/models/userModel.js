@@ -12,8 +12,8 @@ const userSchema = new Schema({
     password: {
         type: String,
     },
-    power: {
-        type: Number,
+    admin: {
+        type: Boolean,
         required: true
     },
     products: [{
@@ -30,7 +30,7 @@ const userSchema = new Schema({
     }
 }, { timestamps: true })
 
-userSchema.statics.signup = async function (email, password, my_id, power) {
+userSchema.statics.signup = async function (email, password, my_id, admin) {
     // Validation
     if (!email || !password) {
         throw Error('All fields must be filled')
@@ -52,7 +52,7 @@ userSchema.statics.signup = async function (email, password, my_id, power) {
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({ email, password: hash, my_id, power })
+    const user = await this.create({ email, password: hash, my_id, admin })
 
     return user
 }

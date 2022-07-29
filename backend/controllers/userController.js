@@ -20,13 +20,13 @@ const signupFunc = async (req, res) => {
         const tarobj = await User.findOne().sort({ my_id: -1 })
         my_id = parseInt(tarobj.my_id) + 1
     }
-    // admin power=1, user power=0
-    const power = 1;
+
+    const admin = false;
 
     try {
-        const user = await User.signup(email, password, my_id, power)
+        const user = await User.signup(email, password, my_id, admin)
         const token = createToken(user._id)
-        res.status(200).json({ email, token })
+        res.status(200).json({ email, token, admin})
     } catch (err) {
         res.status(400).json({ error: err.message })
     }
@@ -39,15 +39,11 @@ const loginFunc = async (req, res) => {
     try {
         const user = await User.login(email, password)
         const token = createToken(user._id)
-        res.status(200).json({ email, token })
+        res.status(200).json({ email, token, admin: user.admin })
     } catch (err) {
         res.status(400).json({ error: err.message })
     }
 
 }
 
-const logoutFunc = (req, res) => {
-
-}
-
-module.exports = { signupFunc, loginFunc, logoutFunc }
+module.exports = { signupFunc, loginFunc }

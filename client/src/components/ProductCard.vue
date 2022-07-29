@@ -15,10 +15,15 @@
           <p>prod_id: {{ product.my_id }}</p>
         </div>
 
-        <button class="appoint-btn m-4" @click="handleAppoint">預約</button>
-        <button class="appoint-btn m-4 bg-red-500" @click="handleDelete">
-          Delete
-        </button>
+        <div>
+          <button class="appoint-btn m-4" @click="handleAppoint">預約</button>
+          <button v-if="mystore.user && mystore.user.admin"
+            class="appoint-btn m-4 bg-red-500"
+            @click="handleDelete"
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -31,13 +36,14 @@ import router from "../router/index";
 export default {
   props: ["product", "id"],
   setup(props) {
-    const myStore = useMyStore();
+    const mystore = useMyStore();
     const handleDelete = async () => {
       const response = await fetch(
         process.env.VUE_APP_BACKEND_LOCAL +
           "/api/products/" +
           props.product._id,
         {
+          headers: { Authorization: `Bearer ${mystore.user.token}` },
           method: "DELETE",
         }
       );
@@ -46,14 +52,14 @@ export default {
         console.log(json.error);
       }
       if (response.ok) {
-        myStore.deleteProd(props.product._id);
+        mystore.deleteProd(props.product._id);
         console.log("Delete one product", json);
       }
     };
     const handleAppoint = async () => {
       router.push("/appoint/" + props.product._id);
     };
-    return { handleDelete, handleAppoint };
+    return { handleDelete, handleAppoint, mystore };
   },
 };
 </script>

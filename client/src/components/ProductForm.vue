@@ -35,10 +35,12 @@
 <script>
 import { ref } from "vue";
 import router from "../router/index";
+import { useMyStore } from "../stores/myStore";
 export default {
   setup() {
     const myform = ref(null);
     const error = ref(null);
+    const mystore = useMyStore();
     const handleSubmit = () => {
       var formData = new FormData(myform.value);
 
@@ -47,6 +49,7 @@ export default {
           await fetch(process.env.VUE_APP_BACKEND_LOCAL + "/api/products", {
             method: "POST",
             body: formData,
+            headers: { Authorization: `Bearer ${mystore.user.token}` },
           });
           myform.value.reset();
           console.log("add new product");
@@ -66,5 +69,4 @@ export default {
 
 
 <style lang="postcss">
-
 </style>

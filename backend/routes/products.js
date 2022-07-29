@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-var multer  = require('multer')
+var multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 
 const {
@@ -10,13 +10,13 @@ const {
     deleteProduct,
     updateProduct
 } = require('../controllers/productController')
-const {isAuth, isAdmin} = require("../middleware/auth")
+const { isAuth, isAdmin } = require("../middleware/auth")
 
 
-router.get('/',  getProducts)
+router.get('/', getProducts)
 router.get('/:id', getProduct)     // un-used
-router.post('/',upload.single('img'), createProduct)    // multer
-router.delete('/:id', deleteProduct)
+router.post('/', isAdmin, upload.single('img'), createProduct)    // multer
+router.delete('/:id',isAdmin, deleteProduct)
 router.patch('/:id', isAdmin, updateProduct)    // un-used
 
 
