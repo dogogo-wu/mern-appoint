@@ -7,9 +7,23 @@
       <router-link to="/signup">Signup</router-link> |
       <router-link to="/login">Login</router-link>
     </nav>
+    <Navbar />
     <router-view class="bg-gray-100 p-16" />
   </div>
 </template>
+
+<script setup>
+import { onMounted } from "vue-demi";
+import { useMyStore } from "./stores/myStore";
+import Navbar from "./components/Navbar.vue";
+
+const mystore = useMyStore();
+
+onMounted(() => {
+  mystore.user = JSON.parse(localStorage.getItem('user'))
+});
+
+</script>
 
 <style lang="scss">
 #app {

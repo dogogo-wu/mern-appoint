@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>This is Appoint show page.</h1>
-    <p v-if="error" class=" text-lg text-red-500 ">{{error}}</p>
+    <p v-if="error" class="text-lg text-red-500">{{ error }}</p>
 
     <div v-if="appoints">
       <div v-for="item in appoints" :key="item._id">
@@ -23,7 +23,7 @@ onMounted(async () => {
   const mystore = useMyStore();
 
   if (!mystore.user) {
-    error.value = "Please Login"
+    error.value = "Please Login";
     return;
   }
 
@@ -37,6 +37,10 @@ onMounted(async () => {
   const json = await response.json();
   if (response.ok) {
     appoints.value = json;
+  }else{
+    console.log(json.error);
+    error.value = json.error
   }
+
 });
 </script>

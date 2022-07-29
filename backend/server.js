@@ -2,8 +2,6 @@ require('dotenv').config()
 
 const express = require("express")
 const mongoose = require("mongoose")
-const session = require("express-session");
-const cookieParser = require('cookie-parser');
 
 const cors = require('cors')
 
@@ -18,7 +16,6 @@ express.static(__dirname + '/uploads')
 // Middleware
 app.use(cors())
 app.use(express.json())
-app.use(cookieParser())
 app.use((req, res, next) => {
     console.log(req.path, req.method);
     next();

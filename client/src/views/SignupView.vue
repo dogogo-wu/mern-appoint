@@ -59,6 +59,7 @@ export default {
       }
       if (response.ok) {
         console.log("add new user", json);
+        localStorage.setItem('user', JSON.stringify(json))
         mystore.user = json;
 
         router.push('/')

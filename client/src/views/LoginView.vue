@@ -59,7 +59,9 @@ export default {
       }
       if (response.ok) {
         console.log("user login", json);
+        localStorage.setItem('user', JSON.stringify(json))
         mystore.user = json;
+        
         router.push('/')
       }
     };
