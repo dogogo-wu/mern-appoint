@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <h1 class="text-3xl font-bold mb-4">All Products</h1>
-    <p v-if="mystore.user">Hello {{ mystore.user.email }}</p>
     <div class="flex justify-around flex-wrap">
       <div v-for="item in mystore.products" :key="item._id">
         <ProductCard :product="item" />
