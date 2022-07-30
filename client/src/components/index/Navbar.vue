@@ -105,8 +105,8 @@
 </template>
 
 <script setup>
-import router from "../router/index";
-import { useMyStore } from "../stores/myStore";
+import router from "../../router/index";
+import { useMyStore } from "../../stores/myStore";
 
 const mystore = useMyStore();
 const handleLogout = () => {

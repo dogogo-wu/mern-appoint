@@ -13,8 +13,8 @@
 
 <script setup>
 import { onMounted, ref } from "vue-demi";
-import AppointCard from "../components/AppointCard.vue";
-import { useMyStore } from "../stores/myStore";
+import AppointCard from "../../components/appoint/AppointCard.vue";
+import { useMyStore } from "../../stores/myStore";
 
 var appoints = ref(null);
 var error = ref(null);

@@ -11,8 +11,8 @@
 <script setup>
 import { onMounted } from "vue-demi";
 import { useMyStore } from "./stores/myStore";
-import Navbar from "./components/Navbar.vue";
-import Footer from "./components/Footer.vue";
+import Navbar from "./components/index/Navbar.vue";
+import Footer from "./components/index/Footer.vue";
 
 const mystore = useMyStore();
 

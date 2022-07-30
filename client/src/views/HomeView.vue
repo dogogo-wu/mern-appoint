@@ -11,7 +11,7 @@
 
 <script>
 import { onMounted } from "vue";
-import ProductCard from "../components/ProductCard.vue";
+import ProductCard from "../components/product/ProductCard.vue";
 import { useMyStore } from "../stores/myStore";
 
 export default {

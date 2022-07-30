@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView'
-import ProdCreate from '../views/ProdCreate.vue'
-import LoginView from '../views/LoginView.vue'
-import SignupView from '../views/SignupView.vue'
-import AppointCreate from '../views/AppointCreate.vue'
-import AppointShowAll from '../views/AppointShowAll.vue'
-import AppointShowMy from '../views/AppointShowMy.vue'
+import ProdCreate from '../views/product/ProdCreate.vue'
+import LoginView from '../views/user/LoginView.vue'
+import SignupView from '../views/user/SignupView.vue'
+import AppointCreate from '../views/appoint/AppointCreate.vue'
+import AppointShowAll from '../views/appoint/AppointShowAll.vue'
+import AppointShowMy from '../views/appoint/AppointShowMy.vue'
 
 const routes = [
   {

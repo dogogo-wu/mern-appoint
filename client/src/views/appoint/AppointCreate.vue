@@ -50,9 +50,9 @@
 </template>
 
 <script setup>
-import { useMyStore } from "../stores/myStore";
+import { useMyStore } from "../../stores/myStore";
 import { onMounted, ref } from "vue-demi";
-import router from "../router/index";
+import router from "../../router/index";
 import moment from "moment";
 
 const props = defineProps({

@@ -34,8 +34,8 @@
 
 <script>
 import { ref } from "vue";
-import router from "../router/index";
-import { useMyStore } from "../stores/myStore";
+import router from "../../router/index";
+import { useMyStore } from "../../stores/myStore";
 export default {
   setup() {
     const myform = ref(null);

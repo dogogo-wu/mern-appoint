@@ -30,8 +30,8 @@
 
 <script>
 import { ref } from "@vue/reactivity";
-import { useMyStore } from "../stores/myStore";
-import router from "../router/index";
+import { useMyStore } from "../../stores/myStore";
+import router from "../../router/index";
 
 export default {
   setup() {

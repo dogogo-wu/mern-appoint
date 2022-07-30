@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import { useMyStore } from "../stores/myStore";
-import router from "../router/index";
+import { useMyStore } from "../../stores/myStore";
+import router from "../../router/index";
 
 export default {
   props: ["product", "id"],

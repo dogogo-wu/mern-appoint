@@ -6,7 +6,7 @@
 
 
 <script>
-import ProductForm from "../components/ProductForm.vue"
+import ProductForm from "../../components/product/ProductForm.vue"
 
 export default {
   components: { ProductForm },
