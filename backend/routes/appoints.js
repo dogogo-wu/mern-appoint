@@ -5,7 +5,6 @@ const {isAuth, isAdmin} = require('../middleware/auth')
 
 const {
     getAppoints, 
-    getAppoint, 
     createAppoint, 
     deleteAppoint, 
     updateAppoint,
@@ -14,7 +13,7 @@ const {
 
 
 router.get('/',isAuth, getAppoints)
-router.get('/:id', getAppoint)
+
 router.post('/',isAuth, createAppoint)
 router.delete('/:id',isAdmin, deleteAppoint)    
 router.patch('/:id',isAdmin, updateAppoint)

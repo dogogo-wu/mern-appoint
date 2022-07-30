@@ -49,7 +49,7 @@ const createAppoint = async (req, res) => {
             end,
             prod: prod_base_id,
             my_id,
-            // user_id: req.user.my_id
+            user_id: req.user.my_id
         });
 
 

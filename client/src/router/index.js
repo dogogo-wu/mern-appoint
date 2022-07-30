@@ -4,7 +4,8 @@ import ProdCreate from '../views/ProdCreate.vue'
 import LoginView from '../views/LoginView.vue'
 import SignupView from '../views/SignupView.vue'
 import AppointCreate from '../views/AppointCreate.vue'
-import AppointShow from '../views/AppointShow.vue'
+import AppointShowAll from '../views/AppointShowAll.vue'
+import AppointShowMy from '../views/AppointShowMy.vue'
 
 const routes = [
   {
@@ -23,8 +24,12 @@ const routes = [
     props: true
   },
   {
-    path: '/myappoint',
-    component: AppointShow,
+    path: '/appoint_my',
+    component: AppointShowMy,
+  },
+  {
+    path: '/appoint_all',
+    component: AppointShowAll,
   },
   {
     path: '/signup',
