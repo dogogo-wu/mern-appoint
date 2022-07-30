@@ -16,8 +16,28 @@ import Footer from "./components/index/Footer.vue";
 
 const mystore = useMyStore();
 
-onMounted(() => {
+onMounted(async() => {
   mystore.user = JSON.parse(localStorage.getItem("appointuser"));
+
+  if (!mystore.user) {
+    return;
+  }
+
+  // init fetch to check token
+  const response = await fetch(
+    process.env.VUE_APP_BACKEND_LOCAL + "/api/user/init",
+    {
+      method: "POST",
+      headers: { Authorization: `Bearer ${mystore.user.token}` },
+    }
+  );
+  const json = await response.json();
+  if (response.ok) {
+    console.log(json);
+  } else {
+    localStorage.removeItem("appointuser");
+    mystore.user = null;
+  }
 });
 </script>
 
@@ -29,7 +49,7 @@ onMounted(() => {
   text-align: center;
   color: #2c3e50;
 }
-.mybody{
+.mybody {
   min-height: calc(100vh - 144px);
 }
 </style>

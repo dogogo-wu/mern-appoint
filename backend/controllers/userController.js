@@ -46,4 +46,8 @@ const loginFunc = async (req, res) => {
 
 }
 
-module.exports = { signupFunc, loginFunc }
+const initCheck = async (req, res) =>{
+    res.status(200).json({message: 'You are login!'})
+}
+
+module.exports = { signupFunc, loginFunc, initCheck }
