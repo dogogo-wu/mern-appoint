@@ -12,6 +12,9 @@ const appointSchema = new Schema({
     status:{
         type: Number
     },
+    message:{
+        type: String
+    },
     prod:{
         type: Schema.Types.ObjectId, ref: 'Product'
     },

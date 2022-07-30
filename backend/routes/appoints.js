@@ -15,7 +15,7 @@ const {
 router.get('/',isAuth, getAppoints)
 
 router.post('/',isAuth, createAppoint)
-router.delete('/:id',isAdmin, deleteAppoint)    
+router.delete('/:id',isAdmin, deleteAppoint) 
 router.patch('/:id',isAdmin, updateAppoint)
 
 router.get('/my',isAuth, getMyAppoints)

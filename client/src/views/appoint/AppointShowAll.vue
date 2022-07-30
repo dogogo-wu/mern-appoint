@@ -6,6 +6,7 @@
     <div v-if="appoints">
       <div v-for="item in appoints" :key="item._id">
         <AppointCard :appoint="item" />
+        <AppointUpdateForm :id="item._id" :org_status="item.status" />
       </div>
     </div>
   </div>
@@ -14,6 +15,7 @@
 <script setup>
 import { onMounted, ref } from "vue-demi";
 import AppointCard from "../../components/appoint/AppointCard.vue";
+import AppointUpdateForm from '../../components/appoint/AppointUpdateForm.vue'
 import { useMyStore } from "../../stores/myStore";
 
 var appoints = ref(null);
@@ -41,6 +43,5 @@ onMounted(async () => {
     console.log(json.error);
     error.value = json.error
   }
-
 });
 </script>

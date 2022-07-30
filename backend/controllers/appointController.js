@@ -1,17 +1,17 @@
 const Appoint = require('../models/appointModel')
 const Product = require('../models/productModel')
+const User = require('../models/userModel')
 const mongoose = require('mongoose')
+const nodemailer = require('nodemailer');
 
 const getMyAppoints = async (req, res) => {
-    console.log(req.user.my_id);
-    const appoints = await Appoint.find({ user_id: req.user.my_id }).populate('prod').sort({ createdAt: 1 })
-    console.log(appoints);
+    const appoints = await Appoint.find({ user_id: req.user.my_id }).populate('prod').sort({ createdAt: -1 })
     res.status(200).json(appoints)
 }
 
 // Get all items
 const getAppoints = async (req, res) => {
-    const appoints = await Appoint.find({}).populate('prod').sort({ createdAt: 1 })
+    const appoints = await Appoint.find({}).populate('prod').sort({ createdAt: -1 })
     res.status(200).json(appoints)
 }
 
@@ -43,13 +43,16 @@ const createAppoint = async (req, res) => {
         my_id = parseInt(tarobj.my_id) + 1
     }
 
+    const status = 0;
+
     try {
         const appoint = await Appoint.create({
             start,
             end,
             prod: prod_base_id,
             my_id,
-            user_id: req.user.my_id
+            user_id: req.user.my_id,
+            status
         });
 
 
@@ -87,11 +90,49 @@ const updateAppoint = async (req, res) => {
     if (!(mongoose.Types.ObjectId.isValid(id))) {
         return res.status(404).json({ error: 'No such item' })
     }
-    const appoint = await Appoint.findOneAndUpdate({ _id: id }, { ...req.body })
+    const appoint = await Appoint.findOneAndUpdate({ _id: id }, { ...req.body }).populate({ path: 'prod', select: 'title content img' })
     if (!appoint) {
         return res.status(404).json({ error: 'No such item' })
     }
+    // Send Email
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        auth: {
+            user: process.env.MAIL_USERNAME,
+            pass: process.env.MAIL_PASSWORD,
+        },
+    });
+
+    const taruser = await User.findOne({ my_id: appoint.user_id })
+
+    const getStatus = (status) => {
+        if (status === 1) {
+            return "已核可"
+        } else if (status === 2) {
+            return "已駁回"
+        }
+    }
+    const out_title = `您預約的-${appoint.prod.title}「${getStatus(req.body.status)}」`
+    const out_content = `<h3>感謝您使用本系統</h3><p>訊息：${req.body.message}</p>`
+
+    transporter.sendMail({
+        from: process.env.MAIL_USERNAME,
+        to: taruser.email,
+        subject: out_title,
+        html: out_content,
+        attachments: [{
+            filename: 'image.'+appoint.prod.img.contentType.split('/')[1],
+            content: appoint.prod.img.image,
+            encoding: 'base64'
+        }]
+    }).then(info => {
+        // console.log({ info });
+    }).catch(console.error);
+
     res.status(200).json(appoint)
+
+
 }
 
 module.exports = { getAppoints, getAppoint, createAppoint, deleteAppoint, updateAppoint, getMyAppoints }
