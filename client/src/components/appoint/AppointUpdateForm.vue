@@ -1,13 +1,13 @@
 <template>
   <div>
     <form @submit.prevent="handleUpdate">
-      <select name="status" v-model="status" required>
+      <select name="status" v-model="status" required :disabled="afterStatus">
         <option :value="0">未處理</option>
         <option :value="1">核可</option>
         <option :value="2">駁回</option>
       </select>
       <label for="message">訊息：</label>
-      <input type="text" v-model="message" />
+      <input type="text" v-model="message" required />
       <button class="mybtn">送出</button>
     </form>
   </div>
@@ -20,6 +20,7 @@ import { ref } from "vue-demi";
 const mystore = useMyStore();
 var status = ref(props.org_status);
 var message = ref('')
+var afterStatus = ref(props.org_status)
 
 const props = defineProps({
   id: String,
@@ -45,6 +46,7 @@ const handleUpdate = async() => {
   }
   if (response.ok) {
     console.log("sucess update appoint", json);
+    afterStatus.value = status.value
     alert("Sucess update appointment!");
   }
 };

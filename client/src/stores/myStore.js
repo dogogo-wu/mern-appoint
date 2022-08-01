@@ -5,6 +5,7 @@ export const useMyStore = defineStore({
   state: () => {
     return {
       products: [],
+      appoints:[],
       user: null
     }
   },

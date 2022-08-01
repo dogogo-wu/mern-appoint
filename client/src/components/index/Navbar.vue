@@ -75,7 +75,7 @@
           "
         >
           <li>
-            <router-link to="/" class="mynav-btn">Home</router-link>
+            <router-link to="/" class="mynav-btn">所有項目</router-link>
           </li>
           <li v-if="mystore.user && mystore.user.admin">
             <router-link to="/create" class="mynav-btn">新增項目</router-link>

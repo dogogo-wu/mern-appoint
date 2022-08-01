@@ -4,7 +4,7 @@ const convertToDateTime = (isoStr) => {
     return datetime.substring(0, datetime.length - 3);
   };
   
-  const duration = (t1, t2) => {
+  const durationCalc = (t1, t2) => {
     const a = new Date(t1);
     const b = new Date(t2);
     const diff = b - a;
@@ -20,4 +20,4 @@ const convertToDateTime = (isoStr) => {
     return result;
   };
 
-  export default {convertToDateTime, duration}
+  export default {convertToDateTime, durationCalc}
