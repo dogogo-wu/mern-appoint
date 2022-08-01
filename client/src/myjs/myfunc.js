@@ -12,11 +12,11 @@ const convertToDateTime = (isoStr) => {
     var tmp = diff / 1000 / 60 / 60 / 24;
     const days = Math.floor(tmp);
     tmp = (tmp - days) * 24;
-    const hours = Math.floor(tmp);
+    const hours = Math.floor(tmp + 0.000000001);  // prevent Round-off error
     tmp = (tmp - hours) * 60;
     const mins = Math.round(tmp);
   
-    const result = days + "天" + hours + "小時" + mins + "分鐘";
+    const result = days + "天" + hours + "小時" + mins + "分";
     return result;
   };
 

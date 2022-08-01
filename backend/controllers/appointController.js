@@ -59,7 +59,7 @@ const createAppoint = async (req, res) => {
         // Update product occupied_time
         const prod = await Product.findOneAndUpdate(
             { _id: prod_base_id },
-            { $push: { occupied_time: { start, end } } }
+            { $push: { occupied_time: { start, end, appo_id: my_id } } }
         )
         if (!prod) {
             return res.status(404).json({ error: 'No such item' })
@@ -81,6 +81,16 @@ const deleteAppoint = async (req, res) => {
     if (!appoint) {
         return res.status(404).json({ error: 'No such item' })
     }
+
+    // ---------- Update product occupied_time (Delete one) ---------- 
+    const prod = await Product.findOneAndUpdate(
+        { _id: appoint.prod },
+        { $pull: { occupied_time: { appo_id:{$eq: appoint.my_id} } } }
+    )
+    if (!prod) {
+        return res.status(404).json({ error: 'No such item' })
+    }
+
     res.status(200).json(appoint)
 }
 
@@ -122,7 +132,7 @@ const updateAppoint = async (req, res) => {
         subject: out_title,
         html: out_content,
         attachments: [{
-            filename: 'image.'+appoint.prod.img.contentType.split('/')[1],
+            filename: 'image.' + appoint.prod.img.contentType.split('/')[1],
             content: appoint.prod.img.image,
             encoding: 'base64'
         }]

@@ -17,7 +17,8 @@ const productSchema = new Schema({
     },
     occupied_time: [{
         start: { type: Date },
-        end: { type: Date }
+        end: { type: Date },
+        appo_id: {type: Number}
     }],
     prepare_time: {
         type: String,

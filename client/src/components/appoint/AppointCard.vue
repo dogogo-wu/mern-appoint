@@ -18,7 +18,7 @@
               </thead>
               <tbody>
                 <tr class="mytr">
-                  <td class="mytd">{{ appoint.my_id }}</td>
+                  <td class="mytd text-lg font-bold">{{ appoint.my_id }}</td>
                   <td class="mytd col-span-2">
                     <img
                       class="rounded-lg w-40 h-24 object-cover"
@@ -27,8 +27,18 @@
                     />
                   </td>
                   <td class="mytd col-span-2">{{ appoint.prod.title }}</td>
-                  <td class="mytd col-span-2">{{ startTime }}</td>
-                  <td class="mytd col-span-2">{{ endTime }}</td>
+                  <td class="mytd col-span-2">
+                    <div>
+                      <p>{{ startTime.split(" ")[0] }}</p>
+                      <p>{{ startTime.split(" ")[1] }}</p>
+                    </div>
+                  </td>
+                  <td class="mytd col-span-2">
+                    <div>
+                      <p>{{ endTime.split(" ")[0] }}</p>
+                      <p>{{ endTime.split(" ")[1] }}</p>
+                    </div>
+                  </td>
                   <td class="mytd col-span-2">{{ duration }}</td>
                   <td class="mytd">
                     <button class="status-btn" :class="statusStyle">
@@ -69,13 +79,6 @@ const showStatue = (status) => {
 };
 
 const checkStatusSytle = (status) => {
-  // if (status === 0) {
-  //   return "bg-yellow-400";
-  // } else if (status === 1) {
-  //   return "bg-green-400";
-  // } else if (status === 2) {
-  //   return "bg-red-400";
-  // }
   if (status === 0) {
     return "border-yellow-500 bg-yellow-100";
   } else if (status === 1) {
@@ -93,11 +96,11 @@ const durationCalc = (t1, t2) => {
   var tmp = diff / 1000 / 60 / 60 / 24;
   const days = Math.floor(tmp);
   tmp = (tmp - days) * 24;
-  const hours = Math.floor(tmp);
+  const hours = Math.floor(tmp + 0.000000001);  // prevent Round-off error
   tmp = (tmp - hours) * 60;
   const mins = Math.round(tmp);
 
-  const result = days + "天" + hours + "小時" + mins + "分鐘";
+  const result = days + "天" + hours + "小時" + mins + "分";
   return result;
 };
 
