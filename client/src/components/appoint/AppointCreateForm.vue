@@ -17,7 +17,8 @@
         </div>
       </div>
 
-      <button class="appoint-btn m-4">預約</button>
+      <button v-if="mystore.user" class="appoint-btn m-4">預約</button>
+      <p v-else class="appoint-btn m-4 cursor-pointer inline-block" @click="handleGoLogin">登入後預約</p>
     </form>
   </div>
 </template>
@@ -100,6 +101,10 @@ const handleSubmit = async () => {
     router.push("/");
   }
 };
+
+const handleGoLogin = ()=>{
+  router.push('/login')
+}
 
 const checkOverlap = (d1, d2) => {
   d1.start = new Date(d1.start);

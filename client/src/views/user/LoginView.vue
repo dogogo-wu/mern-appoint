@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <form @submit.prevent="handleLogin" class="border rounded-xl bg-white">
-      <h3 class="text-lg m-4 font-bold">Login</h3>
+  <div class="myform-container">
+    <form @submit.prevent="handleLogin" class="flex flex-col">
+      <h3 class="myform-title">Login</h3>
       <div>
-        <label>Email: </label>
+        <label class="text-left ">Email</label>
         <input
           class="myinput"
           v-model="email"
@@ -13,7 +13,7 @@
         />
       </div>
       <div>
-        <label>Password: </label>
+        <label>Password</label>
         <input
           class="myinput"
           v-model="password"
@@ -22,8 +22,9 @@
           required
         />
       </div>
-      <button class="mybtn">Login</button>
-      <div>{{ error }}</div>
+      <div class="myerr">{{ error }}</div>
+      <button class="myuser-form-btn">Login</button>
+      <p @click="handleGoSignup" class="mysignup-link">Not a member? Signup now</p> 
     </form>
   </div>
 </template>
@@ -32,6 +33,7 @@
 import { ref } from "@vue/reactivity";
 import { useMyStore } from "../../stores/myStore";
 import router from "../../router/index";
+import { onMounted } from 'vue-demi';
 
 export default {
   setup() {
@@ -40,6 +42,12 @@ export default {
     const password = ref("");
 
     const error = ref(null);
+
+    onMounted(()=>{
+      if (mystore.user) {
+        router.push('/')
+      }
+    })
 
     const handleLogin = async () => {
       const user = { email: email.value, password: password.value };
@@ -62,19 +70,30 @@ export default {
         localStorage.setItem('appointuser', JSON.stringify(json))
         mystore.user = json;
         
-        router.push('/')
+        router.go(-1)
       }
     };
 
-    return { email, password, handleLogin, error };
+    const handleGoSignup = ()=>{
+      router.push('/signup')
+    }
+
+    return { email, password, handleLogin,handleGoSignup, error };
   },
 };
 </script>
 
 <style lang="postcss">
+.myform-container{
+  @apply border rounded-xl bg-white max-w-md mx-auto py-6 px-10 sm:px-20 my-8 shadow-md hover:shadow-lg transition
+}
+.myform-title{
+  @apply text-2xl text-center m-4 font-bold
+}
 .myinput {
-  @apply w-1/2
-        py-2
+  @apply block
+  w-full
+        p-2
         text-base
         font-normal
         text-gray-700
@@ -83,7 +102,7 @@ export default {
         rounded
         transition
         ease-in-out
-        my-4
+        mb-4
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none;
 }
 .mybtn {
@@ -95,5 +114,23 @@ export default {
           font-medium
           rounded-full
           font-semibold;
+}
+.myuser-form-btn {
+  @apply px-4
+          py-2
+          my-4
+          bg-indigo-500
+          hover:bg-indigo-600
+          text-white
+          rounded-full
+          text-lg
+          font-semibold
+          transition
+}
+.mysignup-link{
+  @apply text-slate-400 hover:text-blue-500 ml-auto cursor-pointer font-semibold text-sm py-3 transition
+}
+.myerr{
+  @apply text-red-500 text-sm font-bold
 }
 </style>

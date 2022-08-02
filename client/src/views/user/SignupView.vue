@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <form @submit.prevent="handleSignup" class="border rounded-xl bg-white">
-      <h3 class="text-lg m-4 font-bold">Signup</h3>
+  <div class="myform-container">
+    <form @submit.prevent="handleSignup" class="flex flex-col">
+      <h3 class="myform-title">Signup</h3>
       <div>
-        <label>Email: </label>
+        <label class="text-left">Email</label>
         <input
           class="myinput"
           v-model="email"
@@ -13,7 +13,7 @@
         />
       </div>
       <div>
-        <label>Password: </label>
+        <label>Password</label>
         <input
           class="myinput"
           v-model="password"
@@ -22,8 +22,8 @@
           required
         />
       </div>
-      <button class="mybtn">Signup</button>
-      <div>{{ error }}</div>
+      <div class="myerr">{{ error }}</div>
+      <button class="myuser-form-btn">Signup</button>
     </form>
   </div>
 </template>
@@ -32,6 +32,7 @@
 import { ref } from "@vue/reactivity";
 import { useMyStore } from "../../stores/myStore";
 import router from "../../router/index";
+import { onMounted } from "vue-demi";
 
 export default {
   setup() {
@@ -40,6 +41,12 @@ export default {
     const password = ref("");
 
     const error = ref(null);
+
+    onMounted(() => {
+      if (mystore.user) {
+        router.push("/");
+      }
+    });
 
     const handleSignup = async () => {
       const user = { email: email.value, password: password.value };
@@ -59,10 +66,10 @@ export default {
       }
       if (response.ok) {
         console.log("add new user", json);
-        localStorage.setItem('appointuser', JSON.stringify(json))
+        localStorage.setItem("appointuser", JSON.stringify(json));
         mystore.user = json;
 
-        router.push('/')
+        router.go(-1);
       }
     };
 
