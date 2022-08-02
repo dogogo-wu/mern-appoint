@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="myfooter bg-gray-200">
-      <p>Copyright © {{ new Date().getFullYear() }} Leon Wu (吳承勲).&ensp;</p>
+      <p>Copyright © {{ new Date().getFullYear() }} Leon Wu.&ensp;</p>
       <p>All rights reserved.</p>
     </div>
   </footer>

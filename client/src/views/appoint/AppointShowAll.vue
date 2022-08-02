@@ -29,8 +29,6 @@ onMounted(async () => {
   }
 
   // Fetch appoints
-  if (!mystore.appoints.length) {
-    await mystore.fetchAppos()
-  }
+  await mystore.fetchAppos()
 });
 </script>

@@ -70,8 +70,9 @@ const handleSubmit = async () => {
     alert("結束時間必須晚於開始時間，請重新輸入~");
     return;
   }
-  for (let i = 0; i < props.prodAppos.length; i++) {
-    const item = props.prodAppos[i];
+  var tmpary = props.prodAppos.filter((data) => data.status !== 2);
+  for (let i = 0; i < tmpary.length; i++) {
+    const item = tmpary[i];
     if (checkOverlap(item, { start, end })) {
       alert("該時段已經有其他人預約囉~");
       return;
