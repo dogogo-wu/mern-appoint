@@ -5,13 +5,13 @@ const mongoose = require('mongoose')
 const nodemailer = require('nodemailer');
 
 const getMyAppoints = async (req, res) => {
-    const appoints = await Appoint.find({ user_id: req.user.my_id }).populate('prod').sort({ createdAt: -1 })
+    const appoints = await Appoint.find({ user_id: req.user.my_id }).sort({ createdAt: -1 })
     res.status(200).json(appoints)
 }
 
 // Get all items
 const getAppoints = async (req, res) => {
-    const appoints = await Appoint.find({}).populate('prod').sort({ createdAt: -1 })
+    const appoints = await Appoint.find({}).sort({ createdAt: -1 })
     res.status(200).json(appoints)
 }
 
@@ -56,16 +56,6 @@ const createAppoint = async (req, res) => {
             status
         });
 
-
-        // // Update product occupied_time
-        // const prod = await Product.findOneAndUpdate(
-        //     { _id: prod_base_id },
-        //     { $push: { occupied_time: { start, end, appo_id: my_id } } }
-        // )
-        // if (!prod) {
-        //     return res.status(404).json({ error: 'No such item' })
-        // }
-
         res.status(200).json(appoint);
     } catch (err) {
         res.status(400).json({ error: err.message })
@@ -80,15 +70,6 @@ const deleteAppoint = async (req, res) => {
     }
     const appoint = await Appoint.findOneAndDelete({ _id: id })
     if (!appoint) {
-        return res.status(404).json({ error: 'No such item' })
-    }
-
-    // ---------- Update product occupied_time (Delete one) ---------- 
-    const prod = await Product.findOneAndUpdate(
-        { _id: appoint.prod },
-        { $pull: { occupied_time: { appo_id:{$eq: appoint.my_id} } } }
-    )
-    if (!prod) {
         return res.status(404).json({ error: 'No such item' })
     }
 

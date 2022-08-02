@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="tarprod">
     <div class="flex flex-col">
       <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -22,11 +22,11 @@
                   <td class="mytd col-span-2">
                     <img
                       class="rounded-lg w-40 h-24 object-cover"
-                      :src="`data:${appoint.prod.img.contentType};base64,${appoint.prod.img.image}`"
+                      :src="`data:${tarprod.img.contentType};base64,${tarprod.img.image}`"
                       alt=""
                     />
                   </td>
-                  <td class="mytd col-span-2">{{ appoint.prod.title }}</td>
+                  <td class="mytd col-span-2">{{ tarprod.title }}</td>
                   <td class="mytd col-span-2">
                     <div>
                       <p>{{ startTime.split("T")[0] }}</p>
@@ -56,12 +56,23 @@
 </template>
 
 <script setup>
-import { computed } from "vue-demi";
+import { computed, onMounted, ref } from "vue-demi";
 import moment from "moment";
+import { useMyStore } from "../../stores/myStore";
 
 const props = defineProps({
   appoint: Object,
 });
+
+const mystore = useMyStore();
+const tarprod = ref(null)
+
+onMounted(async()=>{
+  if (!mystore.products.length) {
+    await mystore.fetchProds()
+  }
+  tarprod.value = mystore.products.find((data) => data._id === props.appoint.prod);
+})
 
 /**
  * Example Output: 2022-08-02T14:30

@@ -30,6 +30,7 @@ import router from "../../router/index";
 
 const props = defineProps({
   product: Object,
+  prodAppos: Array
 });
 
 const mystore = useMyStore();
@@ -68,13 +69,13 @@ const handleSubmit = async () => {
     alert("結束時間必須晚於開始時間，請重新輸入~");
     return;
   }
-//   for (let i = 0; i < product.value.occupied_time.length; i++) {
-//     const item = product.value.occupied_time[i];
-//     if (checkOverlap(item, { start, end })) {
-//       alert("該時段已經有其他人預約囉~");
-//       return;
-//     }
-//   }
+  for (let i = 0; i < props.prodAppos.length; i++) {
+    const item = props.prodAppos[i];
+    if (checkOverlap(item, { start, end })) {
+      alert("該時段已經有其他人預約囉~");
+      return;
+    }
+  }
 
   // ------------ Fetch ------------
   const appoint = { prod_base_id: props.product._id, start, end, duration };

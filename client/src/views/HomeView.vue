@@ -9,27 +9,16 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { onMounted } from "vue";
 import ProductCard from "../components/product/ProductCard.vue";
 import { useMyStore } from "../stores/myStore";
 
-export default {
-  components: { ProductCard },
-  setup() {
-    const mystore = useMyStore();
-    onMounted(async () => {
-      const response = await fetch(
-        process.env.VUE_APP_BACKEND_LOCAL + "/api/products"
-      );
-      const json = await response.json();
-      // console.log(json);
-      if (response.ok) {
-        mystore.products = json;
-      }
-    });
+const mystore = useMyStore();
 
-    return { mystore };
-  },
-};
+onMounted(async() => {
+  if (!mystore.products.length) {
+    await mystore.fetchProds();
+  }
+});
 </script>

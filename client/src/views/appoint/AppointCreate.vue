@@ -1,6 +1,6 @@
 <template>
   <!-- Use card component and slot to reuse -->
-  <div v-if="product" class="flex justify-center">
+  <div class="flex justify-center">
     <div class="rounded-lg shadow-lg bg-white max-w-sm">
       <img
         class="rounded-t-lg w-80 h-48 object-cover"
@@ -17,9 +17,9 @@
         </div>
       </div>
 
-      <AppointAlready :product="product" />
+      <AppointAlready :prodAppos="prodAppos" />
 
-      <AppointCreateForm :product="product" />
+      <AppointCreateForm :product="product" :prodAppos="prodAppos" />
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@
 import { useMyStore } from "../../stores/myStore";
 import { onMounted, ref } from "vue-demi";
 import AppointAlready from "../../components/appoint/AppointAlready.vue";
-import AppointCreateForm from  '../../components/appoint/AppointCreateForm.vue'
+import AppointCreateForm from "../../components/appoint/AppointCreateForm.vue";
 
 const props = defineProps({
   id: String,
@@ -36,11 +36,22 @@ const props = defineProps({
 
 const mystore = useMyStore();
 var product = ref(null);
+var prodAppos = ref([]);
 
-onMounted(()=>{
+onMounted(async()=>{
+  if (!mystore.products.length) {
+    await mystore.fetchProds()
+  }
   product.value = mystore.products.find((data) => data._id === props.id);
-})
+  console.log(product.value);
 
+  if (!mystore.appoints.length) {
+    await mystore.fetchAppos()
+  }
+  prodAppos.value = mystore.appoints.filter((data) => data.prod === props.id);
+  
+  
+});
 </script>
 
 <style>

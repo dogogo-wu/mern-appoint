@@ -56,7 +56,7 @@ export default {
         console.log("Delete one product", json);
       }
     };
-    const handleAppoint = async () => {
+    const handleAppoint = () => {
       router.push("/appoint/" + props.product._id);
     };
     return { handleDelete, handleAppoint, mystore };
