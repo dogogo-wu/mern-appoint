@@ -4,14 +4,6 @@
   </div>
 </template>
 
-
-<script>
+<script setup>
 import ProductForm from "../../components/product/ProductForm.vue"
-
-export default {
-  components: { ProductForm },
-  setup(){
-
-  }
-}
 </script>

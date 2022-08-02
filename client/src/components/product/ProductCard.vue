@@ -11,8 +11,9 @@
           {{ product.title }}
         </h5>
         <div class="text-gray-700 text-base mb-4">
-          <p>Describe: {{ product.content }}</p>
-          <p>prod_id: {{ product.my_id }}</p>
+          <p>描述: {{ product.content }}</p>
+          <p>地點: {{ product.location }}</p>
+          <p>項目編號 # {{ product.my_id }}</p>
         </div>
 
         <div>

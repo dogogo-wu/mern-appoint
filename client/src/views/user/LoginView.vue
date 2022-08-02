@@ -111,7 +111,6 @@ export default {
           bg-blue-500
           hover:bg-blue-600
           text-white text-sm
-          font-medium
           rounded-full
           font-semibold;
 }

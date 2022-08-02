@@ -26,7 +26,7 @@ const getProduct = async (req, res) => {
 // Create one item
 const createProduct = async (req, res) => {
 
-    const { title, content } = req.body;
+    const { title, content, location } = req.body;
     var img = fs.readFileSync(req.file.path);
 
     var finalImg = {
@@ -58,6 +58,7 @@ const createProduct = async (req, res) => {
             title,
             img:finalImg,
             content,
+            location,
             my_id,
             user_id: 0
         });

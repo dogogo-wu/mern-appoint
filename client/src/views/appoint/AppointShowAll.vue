@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-lg font-bold">所有預約</h1>
+    <h1 class="text-lg font-bold">All Appointments</h1>
     <p v-if="error" class="text-lg text-red-500">{{ error }}</p>
 
     <div v-if="mystore.appoints.length">

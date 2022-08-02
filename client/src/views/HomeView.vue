@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1 class="text-3xl font-bold mb-4">All Items</h1>
+    <h1 class="text-3xl font-bold">All Items</h1>
     <div class="flex justify-around flex-wrap">
       <div v-for="item in mystore.products" :key="item._id">
         <ProductCard :product="item" />
