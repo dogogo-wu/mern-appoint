@@ -48,7 +48,6 @@ const handleUpdate = async () => {
   if (response.ok) {
     console.log("sucess update appoint", json);
     mystore.updateAppo(props.id, status.value);
-    alert("Sucess update appointment!");
   }
 };
 

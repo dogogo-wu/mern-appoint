@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="tarprod">
     <div class="flex flex-col">
       <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -22,24 +22,24 @@
                   <td class="mytd col-span-2">
                     <img
                       class="rounded-lg w-40 h-24 object-cover"
-                      :src="`data:${appoint.prod.img.contentType};base64,${appoint.prod.img.image}`"
+                      :src="`data:${tarprod.img.contentType};base64,${tarprod.img.image}`"
                       alt=""
                     />
                   </td>
-                  <td class="mytd col-span-2">{{ appoint.prod.title }}</td>
+                  <td class="mytd col-span-2">{{ tarprod.title }}</td>
                   <td class="mytd col-span-2">
                     <div>
-                      <p>{{ startTime.split(" ")[0] }}</p>
-                      <p>{{ startTime.split(" ")[1] }}</p>
+                      <p>{{ startTime.split("T")[0] }}</p>
+                      <p>{{ startTime.split("T")[1] }}</p>
                     </div>
                   </td>
                   <td class="mytd col-span-2">
                     <div>
-                      <p>{{ endTime.split(" ")[0] }}</p>
-                      <p>{{ endTime.split(" ")[1] }}</p>
+                      <p>{{ endTime.split("T")[0] }}</p>
+                      <p>{{ endTime.split("T")[1] }}</p>
                     </div>
                   </td>
-                  <td class="mytd col-span-2">{{ duration }}</td>
+                  <td class="mytd col-span-2">{{ appoint.duration }}</td>
                   <td class="mytd">
                     <button class="status-btn" :class="statusStyle">
                       {{ status }}
@@ -56,16 +56,32 @@
 </template>
 
 <script setup>
-import { computed } from "vue-demi";
+import { computed, onMounted, ref } from "vue-demi";
+import moment from "moment";
+import { useMyStore } from "../../stores/myStore";
 
 const props = defineProps({
   appoint: Object,
 });
 
-const convertToDateTime = (isoStr) => {
+const mystore = useMyStore();
+const tarprod = ref(null)
+
+onMounted(async()=>{
+  if (!mystore.products.length) {
+    await mystore.fetchProds()
+  }
+  tarprod.value = mystore.products.find((data) => data._id === props.appoint.prod);
+})
+
+/**
+ * Example Output: 2022-08-02T14:30
+ */
+const myDateTime = (isoStr) => {
   const d = new Date(isoStr);
-  const datetime = d.toLocaleString();
-  return datetime.substring(0, datetime.length - 3);
+  var datetime = moment(d).format()
+  datetime = datetime.substring(0, datetime.length-9)
+  return datetime;
 };
 
 const showStatue = (status) => {
@@ -88,36 +104,16 @@ const checkStatusSytle = (status) => {
   }
 };
 
-const durationCalc = (t1, t2) => {
-  const a = new Date(t1);
-  const b = new Date(t2);
-  const diff = b - a;
-
-  var tmp = diff / 1000 / 60 / 60 / 24;
-  const days = Math.floor(tmp);
-  tmp = (tmp - days) * 24;
-  const hours = Math.floor(tmp + 0.000000001);  // prevent Round-off error
-  tmp = (tmp - hours) * 60;
-  const mins = Math.round(tmp);
-
-  const result = days + "天" + hours + "小時" + mins + "分";
-  return result;
-};
-
 const startTime = computed(() => {
-  return convertToDateTime(props.appoint.start);
+  return myDateTime(props.appoint.start);
 });
 
 const endTime = computed(() => {
-  return convertToDateTime(props.appoint.end);
+  return myDateTime(props.appoint.end);
 });
 
 const status = computed(() => {
   return showStatue(props.appoint.status);
-});
-
-const duration = computed(() => {
-  return durationCalc(props.appoint.start, props.appoint.end);
 });
 
 const statusStyle = computed(() => {

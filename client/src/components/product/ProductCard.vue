@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center m-4">
+  <div class="flex justify-center m-4 text-center">
     <div class="rounded-lg shadow-lg bg-white max-w-sm">
       <img
         class="rounded-t-lg w-80 h-48 object-cover"
@@ -56,7 +56,7 @@ export default {
         console.log("Delete one product", json);
       }
     };
-    const handleAppoint = async () => {
+    const handleAppoint = () => {
       router.push("/appoint/" + props.product._id);
     };
     return { handleDelete, handleAppoint, mystore };

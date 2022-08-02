@@ -59,7 +59,6 @@ const createProduct = async (req, res) => {
             img:finalImg,
             content,
             my_id,
-            // user_id: req.user.my_id
             user_id: 0
         });
         res.status(200).json(product);

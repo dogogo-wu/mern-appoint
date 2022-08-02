@@ -27,6 +27,30 @@ export const useMyStore = defineStore({
         }
         return appo
       })
+    },
+    async fetchProds(){
+      const response = await fetch(
+        process.env.VUE_APP_BACKEND_LOCAL + "/api/products"
+      );
+      const json = await response.json();
+      if (response.ok) {
+        this.products = json;
+      }
+      if (!response.ok) {
+        console.log(json.error);
+      }
+    },
+    async fetchAppos(){
+      const response = await fetch(
+        process.env.VUE_APP_BACKEND_LOCAL + "/api/appoints"
+      );
+      const json = await response.json();
+      if (response.ok) {
+        this.appoints = json;
+      }
+      if (!response.ok) {
+        console.log(json.error);
+      }
     }
   },
   getters: {

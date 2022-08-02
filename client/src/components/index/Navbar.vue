@@ -10,7 +10,7 @@
       dark:bg-gray-900
     "
   >
-    <div class="container flex flex-wrap justify-between items-center mx-auto">
+    <div class="flex flex-wrap justify-between items-center mx-auto">
       <router-link to="/" class="flex items-center">
         <!-- <img src="" class="mr-3 h-6 sm:h-9" alt="Logo"> -->
         <span
@@ -112,7 +112,7 @@ const mystore = useMyStore();
 const handleLogout = () => {
   localStorage.removeItem("appointuser");
   mystore.user = null;
-  mystore.appoints = null;
+  mystore.appoints = [];
   router.push("/");
 };
 </script>

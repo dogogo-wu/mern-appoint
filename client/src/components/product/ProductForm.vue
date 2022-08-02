@@ -46,11 +46,14 @@ export default {
 
       const createProd = async () => {
         try {
-          await fetch(process.env.VUE_APP_BACKEND_LOCAL + "/api/products", {
+          const response = await fetch(process.env.VUE_APP_BACKEND_LOCAL + "/api/products", {
             method: "POST",
             body: formData,
             headers: { Authorization: `Bearer ${mystore.user.token}` },
           });
+          const json = await response.json();
+          mystore.products.unshift(json)
+
           myform.value.reset();
           console.log("add new product");
           router.push("/");
