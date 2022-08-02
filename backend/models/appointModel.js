@@ -9,6 +9,9 @@ const appointSchema = new Schema({
         type: Date,
         required: true
     },
+    duration: {
+        type: String
+    },
     status:{
         type: Number
     },

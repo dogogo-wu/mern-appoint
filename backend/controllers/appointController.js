@@ -30,7 +30,7 @@ const getAppoint = async (req, res) => {
 
 // Create one item
 const createAppoint = async (req, res) => {
-    const { start, end, prod_base_id } = req.body;
+    const { prod_base_id, start, end, duration } = req.body;
 
     // generate my_id (start from 1)
     var my_id = 0;
@@ -49,6 +49,7 @@ const createAppoint = async (req, res) => {
         const appoint = await Appoint.create({
             start,
             end,
+            duration,
             prod: prod_base_id,
             my_id,
             user_id: req.user.my_id,
@@ -56,14 +57,14 @@ const createAppoint = async (req, res) => {
         });
 
 
-        // Update product occupied_time
-        const prod = await Product.findOneAndUpdate(
-            { _id: prod_base_id },
-            { $push: { occupied_time: { start, end, appo_id: my_id } } }
-        )
-        if (!prod) {
-            return res.status(404).json({ error: 'No such item' })
-        }
+        // // Update product occupied_time
+        // const prod = await Product.findOneAndUpdate(
+        //     { _id: prod_base_id },
+        //     { $push: { occupied_time: { start, end, appo_id: my_id } } }
+        // )
+        // if (!prod) {
+        //     return res.status(404).json({ error: 'No such item' })
+        // }
 
         res.status(200).json(appoint);
     } catch (err) {

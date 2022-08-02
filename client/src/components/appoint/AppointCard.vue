@@ -29,17 +29,17 @@
                   <td class="mytd col-span-2">{{ appoint.prod.title }}</td>
                   <td class="mytd col-span-2">
                     <div>
-                      <p>{{ startTime.split(" ")[0] }}</p>
-                      <p>{{ startTime.split(" ")[1] }}</p>
+                      <p>{{ startTime.split("T")[0] }}</p>
+                      <p>{{ startTime.split("T")[1] }}</p>
                     </div>
                   </td>
                   <td class="mytd col-span-2">
                     <div>
-                      <p>{{ endTime.split(" ")[0] }}</p>
-                      <p>{{ endTime.split(" ")[1] }}</p>
+                      <p>{{ endTime.split("T")[0] }}</p>
+                      <p>{{ endTime.split("T")[1] }}</p>
                     </div>
                   </td>
-                  <td class="mytd col-span-2">{{ duration }}</td>
+                  <td class="mytd col-span-2">{{ appoint.duration }}</td>
                   <td class="mytd">
                     <button class="status-btn" :class="statusStyle">
                       {{ status }}
@@ -57,15 +57,20 @@
 
 <script setup>
 import { computed } from "vue-demi";
+import moment from "moment";
 
 const props = defineProps({
   appoint: Object,
 });
 
-const convertToDateTime = (isoStr) => {
+/**
+ * Example Output: 2022-08-02T14:30
+ */
+const myDateTime = (isoStr) => {
   const d = new Date(isoStr);
-  const datetime = d.toLocaleString();
-  return datetime.substring(0, datetime.length - 3);
+  var datetime = moment(d).format()
+  datetime = datetime.substring(0, datetime.length-9)
+  return datetime;
 };
 
 const showStatue = (status) => {
@@ -88,36 +93,16 @@ const checkStatusSytle = (status) => {
   }
 };
 
-const durationCalc = (t1, t2) => {
-  const a = new Date(t1);
-  const b = new Date(t2);
-  const diff = b - a;
-
-  var tmp = diff / 1000 / 60 / 60 / 24;
-  const days = Math.floor(tmp);
-  tmp = (tmp - days) * 24;
-  const hours = Math.floor(tmp + 0.000000001);  // prevent Round-off error
-  tmp = (tmp - hours) * 60;
-  const mins = Math.round(tmp);
-
-  const result = days + "天" + hours + "小時" + mins + "分";
-  return result;
-};
-
 const startTime = computed(() => {
-  return convertToDateTime(props.appoint.start);
+  return myDateTime(props.appoint.start);
 });
 
 const endTime = computed(() => {
-  return convertToDateTime(props.appoint.end);
+  return myDateTime(props.appoint.end);
 });
 
 const status = computed(() => {
   return showStatue(props.appoint.status);
-});
-
-const duration = computed(() => {
-  return durationCalc(props.appoint.start, props.appoint.end);
 });
 
 const statusStyle = computed(() => {
