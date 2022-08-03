@@ -1,45 +1,45 @@
 <template>
   <div v-if="tarprod">
     <div class="flex flex-col">
-      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+      <div class="overflow-x-auto ">
+        <div class="py-2 inline-block min-w-full ">
           <div class="overflow-hidden rounded-xl">
             <table class="min-w-full">
               <thead>
                 <tr class="mytr border-b border-gray-300">
                   <th class="myth">#編號</th>
-                  <th class="myth col-span-2">圖片</th>
-                  <th class="myth col-span-2">名稱</th>
-                  <th class="myth col-span-2">開始時間</th>
-                  <th class="myth col-span-2">結束時間</th>
-                  <th class="myth col-span-2">總計時長</th>
+                  <th class="myth"><div class="inline-block w-40">圖片</div></th>
+                  <th class="myth">名稱</th>
+                  <th class="myth">開始時間</th>
+                  <th class="myth">結束時間</th>
+                  <th class="myth">總計時長</th>
                   <th class="myth">狀態</th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="mytr">
-                  <td class="mytd text-lg font-bold">{{ appoint.my_id }}</td>
-                  <td class="mytd col-span-2">
+                  <td class="mytd"><div class="pl-2 text-xl text-gray-500 font-bold">{{ appoint.my_id }}</div></td>
+                  <td class="mytd">
                     <img
-                      class="rounded-lg w-40 h-24 object-cover"
+                      class="rounded-lg w-40 h-24 object-cover "
                       :src="`data:${tarprod.img.contentType};base64,${tarprod.img.image}`"
                       alt=""
                     />
                   </td>
-                  <td class="mytd col-span-2">{{ tarprod.title }}</td>
-                  <td class="mytd col-span-2">
+                  <td class="mytd">{{ tarprod.title }}</td>
+                  <td class="mytd">
                     <div>
                       <p>{{ startTime.split("T")[0] }}</p>
                       <p>{{ startTime.split("T")[1] }}</p>
                     </div>
                   </td>
-                  <td class="mytd col-span-2">
+                  <td class="mytd">
                     <div>
                       <p>{{ endTime.split("T")[0] }}</p>
                       <p>{{ endTime.split("T")[1] }}</p>
                     </div>
                   </td>
-                  <td class="mytd col-span-2">{{ appoint.duration }}</td>
+                  <td class="mytd">{{ appoint.duration }}</td>
                   <td class="mytd">
                     <button class="status-btn" :class="statusStyle">
                       {{ status }}
@@ -129,20 +129,19 @@ const statusStyle = computed(() => {
         px-2
         py-4
         text-left
-        break-words;
+        whitespace-nowrap
 }
 .mytr {
-  @apply bg-white px-2 grid grid-cols-12;
+  @apply bg-white px-2;
 }
 .mytd {
   @apply text-sm text-gray-900
-          font-medium
           text-left
           px-2
           py-4
-          break-words;
+          whitespace-nowrap
 }
 .status-btn {
-  @apply rounded-full border-2 py-2 px-3 pointer-events-none;
+  @apply rounded-full border-2 py-2 px-2 pointer-events-none;
 }
 </style>
