@@ -86,36 +86,37 @@
           >
             <div class="py-1 text-center">
               <MenuItem>
-                <router-link to="/" class="mynav-btn-menu">
+                <a class="mynav-btn-menu" @click="router.push('/')">
                   所有項目
-                </router-link>
+                </a>
               </MenuItem>
               <MenuItem v-if="mystore.user && mystore.user.admin">
-                <router-link to="/create" class="mynav-btn-menu">
+                <a class="mynav-btn-menu" @click="router.push('/create')">
                   新增項目
-                </router-link>
+                </a>
               </MenuItem>
               <MenuItem v-if="mystore.user">
-                <router-link to="/appoint_my" class="mynav-btn-menu">
+                <a class="mynav-btn-menu" @click="router.push('/appoint_my')">
                   我的預約
-                </router-link>
+                </a>
               </MenuItem>
               <MenuItem v-if="mystore.user && mystore.user.admin">
-                <router-link to="/appoint_all" class="mynav-btn-menu">
+                <a class="mynav-btn-menu" @click="router.push('/appoint_all')">
                   所有預約
-                </router-link>
+                </a>
               </MenuItem>
               <MenuItem v-if="!mystore.user" class="block mx-12 my-4">
-                <router-link to="/login" class="login-btn">
-                  Login
-                </router-link>
+                <a class="login-btn" @click="router.push('/login')"> Login </a>
               </MenuItem>
               <MenuItem v-if="!mystore.user" class="block mx-12 my-4">
-                <router-link to="/signup" class="login-btn">
+                <a class="login-btn" @click="router.push('/signup')">
                   Signup
-                </router-link>
+                </a>
               </MenuItem>
-              <MenuItem v-if="mystore.user" class="py-4 border-t-2 w-4/5 mx-auto ">
+              <MenuItem
+                v-if="mystore.user"
+                class="py-4 border-t-2 w-4/5 mx-auto"
+              >
                 <span class="block text-sm">{{ mystore.user.email }}</span>
               </MenuItem>
               <MenuItem v-if="mystore.user">

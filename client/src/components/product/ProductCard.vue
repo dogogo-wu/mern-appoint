@@ -19,7 +19,7 @@
         <div>
           <button class="appoint-btn m-4" @click="handleAppoint">立即預約</button>
           <button v-if="mystore.user && mystore.user.admin"
-            class="appoint-btn m-4 bg-red-500"
+            class="appoint-btn m-4 bg-red-500 hover:bg-red-700"
             @click="handleDelete"
           >
             Delete
