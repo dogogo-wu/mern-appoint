@@ -3,6 +3,7 @@ const Product = require('../models/productModel')
 const User = require('../models/userModel')
 const mongoose = require('mongoose')
 const nodemailer = require('nodemailer');
+const moment = require('moment')
 
 const getMyAppoints = async (req, res) => {
     const appoints = await Appoint.find({ user_id: req.user.my_id }).sort({ createdAt: -1 })
@@ -82,7 +83,7 @@ const updateAppoint = async (req, res) => {
     if (!(mongoose.Types.ObjectId.isValid(id))) {
         return res.status(404).json({ error: 'No such item' })
     }
-    const appoint = await Appoint.findOneAndUpdate({ _id: id }, { ...req.body }).populate({ path: 'prod', select: 'title content img' })
+    const appoint = await Appoint.findOneAndUpdate({ _id: id }, { ...req.body }).populate({ path: 'prod', select: 'title content location img' })
     if (!appoint) {
         return res.status(404).json({ error: 'No such item' })
     }
@@ -105,8 +106,32 @@ const updateAppoint = async (req, res) => {
             return "已駁回"
         }
     }
+    const myDateTime = (isoStr) => {
+        const d = new Date(isoStr);
+        var datetime = moment(d).format();
+        datetime = datetime.substring(0, datetime.length - 9);
+        return datetime;
+      };
+
     const out_title = `您預約的-${appoint.prod.title}「${getStatus(req.body.status)}」`
-    const out_content = `<h3>感謝您使用本系統</h3><p>訊息：${req.body.message}</p>`
+    var out_content =
+    `
+    <h3>感謝您使用本系統</h3>
+    <p>預約項目：${appoint.prod.title}</p>
+    <p>項目描述：${appoint.prod.content}</p>
+    <p>地點：${appoint.prod.location}</p>
+    <p>開始時間：${myDateTime(appoint.start).split("T")[0]} ${myDateTime(appoint.start).split("T")[1]}</p>
+    <p>結束時間：${myDateTime(appoint.end).split("T")[0]} ${myDateTime(appoint.end).split("T")[1]}</p>
+    <p>總計時長：${appoint.duration}</p>
+    <p>審核結果：${getStatus(req.body.status)}</p>
+    <p>審核訊息：${req.body.message}</p>
+    `
+    if (req.body.status === 1 ) {
+        out_content += '<h3><b>請準時前來，謝謝您！</b></h3>'
+    }else if (req.body.status === 2 ){
+        out_content += '<h3><b>若有疑問，請回復此信箱，謝謝您~</b></h3>'
+    }
+
 
     transporter.sendMail({
         from: process.env.MAIL_USERNAME,

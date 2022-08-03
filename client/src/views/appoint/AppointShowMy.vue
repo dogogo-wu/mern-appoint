@@ -8,7 +8,7 @@
         <AppointCard :appoint="item" />
       </div>
     </div>
-    <div v-else class="p-4 font-bold text-cyan-600">沒有預約項目~</div>
+    <div v-else class="p-4 font-bold text-cyan-600">目前沒有預約喔~</div>
   </div>
 </template>
 

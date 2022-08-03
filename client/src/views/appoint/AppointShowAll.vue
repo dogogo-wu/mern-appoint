@@ -6,8 +6,11 @@
     <div v-if="mystore.appoints.length">
       <div v-for="item in mystore.appoints" :key="item._id">
         <AppointCard :appoint="item" />
-        <AppointUpdateForm :id="item._id" :org_status="item.status" :org_message="item.message" />
+        <AppointUpdateForm :id="item._id" :org_status="item.status" :org_message="item.message" :user_id="item.user_id" />
       </div>
+    </div>
+    <div v-else>
+      <p class="p-4 font-bold text-cyan-600">目前沒有預約喔~</p>
     </div>
   </div>
 </template>
