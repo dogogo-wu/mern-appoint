@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class="bg-gray-100 px-4 sm:px-16 py-4 mybody">
+    <div class="bg-gray-100 px-4 sm:px-12 py-4 mybody">
       <router-view />
     </div>
     <Footer />

@@ -100,5 +100,7 @@ export default {
 .mylist li{
   list-style-type: disc;
   margin-left: 1rem;
+  padding-top: 6px;
+  padding-bottom: 4px;
 }
 </style>

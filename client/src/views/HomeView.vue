@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <div class="">
     <h1 class="text-3xl font-bold">All Items</h1>
-    <div class="flex justify-around flex-wrap">
+    <div class="flex flex-wrap justify-evenly">
       <div v-for="item in mystore.products" :key="item._id">
         <ProductCard :product="item" />
       </div>
@@ -16,7 +16,7 @@ import { useMyStore } from "../stores/myStore";
 
 const mystore = useMyStore();
 
-onMounted(async() => {
+onMounted(async () => {
   if (!mystore.products.length) {
     await mystore.fetchProds();
   }
