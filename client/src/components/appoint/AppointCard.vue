@@ -7,7 +7,7 @@
             <table class="min-w-full">
               <thead>
                 <tr class="mytr border-b border-gray-300">
-                  <th class="myth">#編號</th>
+                  <th class="myth">預約#</th>
                   <th class="myth"><div class="inline-block w-32">圖片</div></th>
                   <th class="myth">名稱</th>
                   <th class="myth">開始時間</th>
