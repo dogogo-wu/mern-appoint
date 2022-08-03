@@ -27,7 +27,7 @@ app.use('/api/products', productRoutes)
 app.use('/api/user', userRoutes)
 
 // Connect to mongoDB and Listen port
-mongoose.connect(process.env.MONG_LOCAL)
+mongoose.connect(process.env.MONG_URI)
     .then(() => {
         app.listen(process.env.PORT, () => {
             console.log("Connected to mongoDB and Listening on port 4000");

@@ -68,7 +68,7 @@ const mystore = useMyStore();
 const tarprod = ref(null)
 
 onMounted(async()=>{
-  if (!mystore.products.length) {
+  if (!mystore.products) {
     await mystore.fetchProds()
   }
   tarprod.value = mystore.products.find((data) => data._id === props.appoint.prod);

@@ -3,12 +3,17 @@
     <h1 class="text-lg font-bold">My Appointments</h1>
     <p v-if="error" class="text-lg text-red-500">{{ error }}</p>
 
-    <div v-if="appoints.length">
-      <div v-for="item in appoints" :key="item._id">
-        <AppointCard :appoint="item" />
+    <div v-if="appoints">
+      <div v-if="appoints.length">
+        <div v-for="item in appoints" :key="item._id">
+          <AppointCard :appoint="item" />
+        </div>
       </div>
+      <div v-else class="p-4 font-bold text-cyan-600">目前沒有預約喔~</div>
     </div>
-    <div v-else class="p-4 font-bold text-cyan-600">目前沒有預約喔~</div>
+    <div v-else class="flex justify-center">
+      <MyLoader />
+    </div>
   </div>
 </template>
 
@@ -16,8 +21,9 @@
 import { onMounted, ref } from "vue-demi";
 import AppointCard from "../../components/appoint/AppointCard.vue";
 import { useMyStore } from "../../stores/myStore";
+import MyLoader from '../../components/index/MyLoader.vue'
 
-var appoints = ref([]);
+var appoints = ref(null);
 var error = ref(null);
 
 onMounted(async () => {
@@ -38,10 +44,9 @@ onMounted(async () => {
   const json = await response.json();
   if (response.ok) {
     appoints.value = json;
-  }else{
+  } else {
     console.log(json.error);
-    error.value = json.error
+    error.value = json.error;
   }
-
 });
 </script>

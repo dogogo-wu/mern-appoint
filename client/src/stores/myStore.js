@@ -4,8 +4,8 @@ export const useMyStore = defineStore({
   id: 'mystore',
   state: () => {
     return {
-      products: [],
-      appoints:[],
+      products: null,
+      appoints:null,
       user: null
     }
   },

@@ -41,7 +41,7 @@ var product = ref(null);
 var prodAppos = ref([]);
 
 onMounted(async () => {
-  if (!mystore.products.length) {
+  if (!mystore.products) {
     await mystore.fetchProds();
   }
   product.value = mystore.products.find((data) => data._id === props.id);

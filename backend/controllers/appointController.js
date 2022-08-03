@@ -6,8 +6,12 @@ const nodemailer = require('nodemailer');
 const moment = require('moment')
 
 const getMyAppoints = async (req, res) => {
-    const appoints = await Appoint.find({ user_id: req.user.my_id }).sort({ createdAt: -1 })
-    res.status(200).json(appoints)
+    try {
+        const appoints = await Appoint.find({ user_id: req.user.my_id }).sort({ createdAt: -1 })
+        res.status(200).json(appoints)
+    } catch (err) {
+        res.status(400).json({ error: err.message })
+    }
 }
 
 // Get all items

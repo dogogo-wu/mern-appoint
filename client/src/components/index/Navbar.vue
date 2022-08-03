@@ -186,7 +186,7 @@ const mystore = useMyStore();
 const handleLogout = () => {
   localStorage.removeItem("appointuser");
   mystore.user = null;
-  mystore.appoints = [];
+  mystore.appoints = null;
   router.push("/");
 };
 </script>
