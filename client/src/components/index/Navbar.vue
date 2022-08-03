@@ -15,7 +15,7 @@
         <!-- <img src="" class="mr-3 h-6 sm:h-9" alt="Logo"> -->
         <span
           class="
-          p-3
+            p-3
             self-center
             text-2xl
             font-semibold
@@ -25,39 +25,108 @@
           >預約系統</span
         >
       </router-link>
-      <button
-        data-collapse-toggle="navbar-default"
-        type="button"
-        class="
-          inline-flex
-          items-center
-          p-2
-          ml-3
-          text-sm text-gray-500
-          rounded-lg
-          md:hidden
-          hover:bg-gray-100
-          focus:outline-none focus:ring-2 focus:ring-gray-200
-          dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600
-        "
-        aria-controls="navbar-default"
-        aria-expanded="false"
-      >
-        <span class="sr-only">Open main menu</span>
-        <svg
-          class="w-6 h-6"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
+      <Menu as="div" class="relative inline-block md:hidden">
+        <div>
+          <MenuButton
+            class="
+              inline-flex
+              justify-center
+              w-full
+              rounded-md
+              border border-gray-300
+              hover:shadow-sm
+              px-2
+              py-2
+              bg-gray-100
+              text-sm
+              font-medium
+              text-gray-700
+              hover:bg-gray-50
+              focus:outline-none
+            "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </MenuButton>
+        </div>
+
+        <transition
+          enter-active-class="transition ease-out duration-100"
+          enter-from-class="transform opacity-0 scale-95"
+          enter-to-class="transform opacity-100 scale-100"
+          leave-active-class="transition ease-in duration-75"
+          leave-from-class="transform opacity-100 scale-100"
+          leave-to-class="transform opacity-0 scale-95"
         >
-          <path
-            fill-rule="evenodd"
-            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clip-rule="evenodd"
-          ></path>
-        </svg>
-      </button>
+          <MenuItems
+            class="
+              origin-top-right
+              absolute
+              right-0
+              mt-2
+              w-56
+              rounded-md
+              shadow-lg
+              bg-white
+              ring-1 ring-black ring-opacity-5
+              focus:outline-none
+            "
+          >
+            <div class="py-1 text-center">
+              <MenuItem>
+                <router-link to="/" class="mynav-btn-menu">
+                  所有項目
+                </router-link>
+              </MenuItem>
+              <MenuItem v-if="mystore.user && mystore.user.admin">
+                <router-link to="/create" class="mynav-btn-menu">
+                  新增項目
+                </router-link>
+              </MenuItem>
+              <MenuItem v-if="mystore.user">
+                <router-link to="/appoint_my" class="mynav-btn-menu">
+                  我的預約
+                </router-link>
+              </MenuItem>
+              <MenuItem v-if="mystore.user && mystore.user.admin">
+                <router-link to="/appoint_all" class="mynav-btn-menu">
+                  所有預約
+                </router-link>
+              </MenuItem>
+              <MenuItem v-if="!mystore.user" class="block mx-12 my-4">
+                <router-link to="/login" class="login-btn">
+                  Login
+                </router-link>
+              </MenuItem>
+              <MenuItem v-if="!mystore.user" class="block mx-12 my-4">
+                <router-link to="/signup" class="login-btn">
+                  Signup
+                </router-link>
+              </MenuItem>
+              <MenuItem v-if="mystore.user" class="py-4 border-t-2 w-4/5 mx-auto ">
+                <span class="block text-sm">{{ mystore.user.email }}</span>
+              </MenuItem>
+              <MenuItem v-if="mystore.user">
+                <button class="login-btn mb-4 text-sm" @click="handleLogout">
+                  Logout
+                </button>
+              </MenuItem>
+            </div>
+          </MenuItems>
+        </transition>
+      </Menu>
       <div
         class="mynav-inner hidden w-full md:block md:w-auto"
         id="navbar-default"
@@ -96,7 +165,9 @@
           </li>
           <li v-if="mystore.user">
             <span class="ml-4 text-sm">{{ mystore.user.email }}</span>
-            <button class="login-btn ml-3 text-sm" @click="handleLogout">Logout</button>
+            <button class="login-btn ml-3 text-sm" @click="handleLogout">
+              Logout
+            </button>
           </li>
         </ul>
       </div>
@@ -107,6 +178,8 @@
 <script setup>
 import router from "../../router/index";
 import { useMyStore } from "../../stores/myStore";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
+import { ChevronDownIcon } from "@heroicons/vue/solid";
 
 const mystore = useMyStore();
 const handleLogout = () => {
@@ -127,9 +200,12 @@ const handleLogout = () => {
 </style>
 
 <style lang="postcss">
+.login-add {
+}
 .login-btn {
   @apply px-4
             py-1
+            inline-block
             border-2
             border-orange-500
             rounded-full
@@ -146,23 +222,23 @@ const handleLogout = () => {
     px-2
     lg:px-4
   text-gray-700 rounded
-  hover:bg-gray-100 
-    md:hover:bg-transparent 
-    md:border-0 
-  md:hover:text-blue-700
-  dark:text-gray-400 
-  md:dark:hover:text-white
-  dark:hover:bg-gray-700
-  dark:hover:text-white 
-    md:dark:hover:bg-transparent;
+  hover:text-slate-500;
 }
-
 .mynav-btn.router-link-exact-active {
-  @apply text-white 
-  bg-blue-700 
-  rounded 
-  md:bg-transparent
-   md:text-blue-700
-    dark:text-white;
+  @apply rounded 
+  bg-transparent
+text-blue-700;
+}
+.mynav-btn-menu {
+  @apply font-bold 
+    block
+    text-sm 
+    py-4
+    px-4
+  text-gray-700 rounded
+  hover:bg-gray-100;
+}
+.mynav-btn-menu.router-link-exact-active {
+  @apply text-blue-700;
 }
 </style>

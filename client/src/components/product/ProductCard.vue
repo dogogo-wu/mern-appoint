@@ -67,16 +67,15 @@ export default {
 
 <style lang="postcss">
 .appoint-btn {
-  @apply px-6
+  @apply px-8
             py-2
             bg-blue-600
             text-white
-            font-medium
+            font-semibold
             leading-tight
-            rounded-lg
-            shadow-md
-            hover:brightness-100 hover:shadow-lg
-            active:brightness-50 active:shadow-lg
+            rounded-full
+            hover:shadow-md
+            hover:bg-blue-700
             transition
             duration-150
             ease-in-out;
