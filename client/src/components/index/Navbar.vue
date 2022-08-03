@@ -12,7 +12,7 @@
   >
     <div class="flex flex-wrap justify-between items-center mx-auto">
       <router-link to="/" class="flex items-center">
-        <!-- <img src="" class="mr-3 h-6 sm:h-9" alt="Logo"> -->
+        <img src="../../assets/logo_cir.png" class="h-12" alt="Logo">
         <span
           class="
             p-3
