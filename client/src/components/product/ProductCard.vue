@@ -1,28 +1,44 @@
 <template>
-  <div class="flex justify-center m-4 text-center">
+  <div class="flex justify-center m-4">
     <div class="rounded-lg shadow-lg bg-white max-w-sm">
       <img
         class="rounded-t-lg w-80 h-48 object-cover"
         :src="`data:${product.img.contentType};base64,${product.img.image}`"
         alt=""
       />
-      <div class="p-6">
-        <h5 class="text-gray-900 text-xl font-medium mb-2">
+      <div class="px-6 py-4">
+        <h5 class="text-gray-700 text-xl font-bold mb-2 text-center">
           {{ product.title }}
         </h5>
-        <div class="text-gray-700 text-base mb-4">
-          <p>描述: {{ product.content }}</p>
-          <p>地點: {{ product.location }}</p>
-          <p>項目編號 # {{ product.my_id }}</p>
-        </div>
+        <ul class="mylist text-gray-700 text-base mb-4">
+          <li>描述：{{ product.content }}</li>
+          <li>地點：{{ product.location }}</li>
+          <li>項目編號：# {{ product.my_id }}</li>
+        </ul>
 
-        <div>
-          <button class="appoint-btn m-4" @click="handleAppoint">立即預約</button>
-          <button v-if="mystore.user && mystore.user.admin"
-            class="appoint-btn m-4 bg-red-500 hover:bg-red-700"
+        <div class="flex justify-center">
+          <button class="appoint-btn" @click="handleAppoint">
+            <span>立即預約</span>
+          </button>
+          <button
+            v-if="mystore.user && mystore.user.admin"
+            class="appoint-btn ml-4 bg-red-500 hover:bg-red-700"
             @click="handleDelete"
           >
-            Delete
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
+            </svg>
           </button>
         </div>
       </div>
@@ -79,5 +95,9 @@ export default {
             transition
             duration-150
             ease-in-out;
+}
+.mylist li{
+  list-style-type: disc;
+  margin-left: 1rem;
 }
 </style>

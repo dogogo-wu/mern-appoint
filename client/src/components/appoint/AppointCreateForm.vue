@@ -1,24 +1,24 @@
 <template>
   <div>
-    <form @submit.prevent="handleSubmit">
-      <div class="mt-4">
-        <p>開始時間</p>
-        <div class="flex justify-around mx-auto">
+    <form @submit.prevent="handleSubmit" class="flex flex-col px-6">
+      <div class=" my-2 p-2 rounded border-2">
+        <p class="mb-2">開始時間</p>
+        <div class="flex justify-between mx-auto">
           <input type="date" v-model="date_st" />
           <input type="time" v-model="time_st" />
         </div>
       </div>
 
-      <div class="mt-4">
-        <p>結束時間</p>
-        <div class="flex justify-around mx-auto">
+      <div class=" my-2 p-2 rounded border-2">
+        <p class="mb-2">結束時間</p>
+        <div class="flex justify-between mx-auto">
           <input type="date" v-model="date_end" />
           <input type="time" v-model="time_end" />
         </div>
       </div>
 
-      <button v-if="mystore.user" class="appoint-btn m-4">預約</button>
-      <p v-else class="appoint-btn m-4 cursor-pointer inline-block" @click="handleGoLogin">登入後預約</p>
+      <button v-if="mystore.user" class="appoint-btn mx-12 mt-4 mb-6">預約</button>
+      <p v-else class="appoint-btn mx-12 mt-4 mb-6 cursor-pointer text-center" @click="handleGoLogin">登入後預約</p>
     </form>
   </div>
 </template>
