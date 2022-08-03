@@ -65,7 +65,7 @@ export default {
         error.value = json.error;
       }
       if (response.ok) {
-        console.log("add new user", json);
+        // console.log("add new user", json);
         localStorage.setItem("appointuser", JSON.stringify(json));
         mystore.user = json;
 

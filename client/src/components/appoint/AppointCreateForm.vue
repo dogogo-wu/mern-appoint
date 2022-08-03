@@ -97,9 +97,9 @@ const handleSubmit = async () => {
     console.log(json.error);
   }
   if (response.ok) {
-    console.log("add new appoint", json);
+    // console.log("add new appoint", json);
     alert("已送出預約申請~請等待審核 (email回覆)");
-    router.push("/");
+    router.push("/appoint_my");
   }
 };
 

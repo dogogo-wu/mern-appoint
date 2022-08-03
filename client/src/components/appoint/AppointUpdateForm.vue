@@ -1,6 +1,6 @@
 <template>
-  <div class="flex justify-between border-b-4 border-gray-400 mb-4 p-2">
-    <div class="flex items-center">
+  <div class="flex items-center md:items-start justify-start md:justify-between flex-col md:flex-row border-b-4 border-gray-400 mb-4 p-2">
+    <div class="flex items-center mb-4">
       <div class="bg-sky-500 text-white rounded-full p-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@
         <option :value="2">駁回</option>
       </select>
       <label for="message" class="text-sm font-bold text-gray-600">訊息：</label>
-      <input type="text" class="myinput-send w-40 " v-model="message" required :disabled="org_status" />
+      <input type="text" class="myinput-send w-28 sm:w-40 " v-model="message" required :disabled="org_status" />
       <button class="mybtn ml-2" v-if="!org_status">送出</button>
     </form>
   </div>
@@ -54,6 +54,10 @@ const props = defineProps({
 });
 
 const handleUpdate = async () => {
+  if (status.value ===0 ) {
+    alert('請選擇「核可」或「駁回」')
+    return
+  }
   const appoint = { status: status.value, message: message.value };
   const response = await fetch(
     process.env.VUE_APP_BACKEND_LOCAL + "/api/appoints/" + props.id,
@@ -71,7 +75,7 @@ const handleUpdate = async () => {
     console.log(json.error);
   }
   if (response.ok) {
-    console.log("sucess update appoint", json);
+    // console.log("sucess update appoint", json);
     mystore.updateAppo(props.id, status.value);
   }
 };
@@ -90,7 +94,7 @@ const handleAppoDel = async () => {
   }
   if (response.ok) {
     mystore.deleteAppo(props.id);
-    console.log("Delete one appoint", json);
+    // console.log("Delete one appoint", json);
     alert('已刪除一筆預約資料~')
   }
 };

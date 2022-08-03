@@ -37,7 +37,7 @@ const createProduct = async (req, res) => {
     // Delete upload file on server
     try {
         fs.unlinkSync(req.file.path);
-        console.log("File on Server is removed.");
+        // console.log("File on Server is removed.");
     } catch (error) {
         console.log(error);
     }

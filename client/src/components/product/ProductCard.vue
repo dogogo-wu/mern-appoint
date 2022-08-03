@@ -70,7 +70,7 @@ export default {
       }
       if (response.ok) {
         mystore.deleteProd(props.product._id);
-        console.log("Delete one product", json);
+        // console.log("Delete one product", json);
         alert('已刪除一個項目~')
       }
     };
