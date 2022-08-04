@@ -15,17 +15,13 @@
     </h5>
     <div class="flex justify-evenly w-full">
       <div class="flex items-center">
-        <span
-          class="mydot bg-yellow-500"
-        ></span>
+        <span class="mydot bg-yellow-500"></span>
         <span class="inline-block text-sm text-slate-500 font-semibold"
           >待審核</span
         >
       </div>
       <div class="flex items-center">
-        <span
-          class="mydot bg-green-500"
-        ></span>
+        <span class="mydot bg-green-500"></span>
         <span class="inline-block text-sm text-slate-500 font-semibold"
           >已核可</span
         >
@@ -33,15 +29,20 @@
     </div>
 
     <div class="text-gray-700 text-base mb-4 w-80">
-      <div
-        v-for="item in sortProdAppos"
-        :key="item._id"
-        class="already-card"
-        :class="showStatus(item.status)"
-      >
-        <p>開始：{{ convertToDateTime(item.start) }}</p>
-        <p>結束：{{ convertToDateTime(item.end) }}</p>
-        <p>時長：{{ item.duration }}</p>
+      <div v-if="prodAppos">
+        <div
+          v-for="item in sortProdAppos"
+          :key="item._id"
+          class="already-card"
+          :class="showStatus(item.status)"
+        >
+          <p>開始：{{ convertToDateTime(item.start) }}</p>
+          <p>結束：{{ convertToDateTime(item.end) }}</p>
+          <p>時長：{{ item.duration }}</p>
+        </div>
+      </div>
+      <div v-else class="flex justify-center my-8">
+        <MyLoader />
       </div>
     </div>
   </div>
@@ -49,6 +50,7 @@
 
 <script setup>
 import { computed } from "vue-demi";
+import MyLoader from "../../components/index/MyLoader.vue";
 
 const props = defineProps({
   prodAppos: Array,
@@ -88,7 +90,7 @@ const convertToDateTime = (isoStr) => {
 .already-card {
   @apply border-2 p-2 rounded-md m-4;
 }
-.mydot{
-  @apply inline-block rounded-full w-3 h-3 mx-1
+.mydot {
+  @apply inline-block rounded-full w-3 h-3 mx-1;
 }
 </style>

@@ -29,7 +29,11 @@ app.use('/api/user', userRoutes)
 // Connect to mongoDB and Listen port
 mongoose.connect(process.env.MONG_URI)
     .then(() => {
-        app.listen(process.env.PORT, () => {
+        let port = process.env.PORT;
+        if (port == null || port == "") {
+            port = 4000;
+        }
+        app.listen(port, () => {
             console.log("Connected to mongoDB and Listening on port 4000");
         })
     })

@@ -13,7 +13,7 @@
         目前沒有可預約的項目喔~
       </div>
     </div>
-    <div v-else class="flex justify-center">
+    <div v-else class="flex justify-center mt-8">
       <MyLoader />
     </div>
   </div>

@@ -38,7 +38,7 @@ const props = defineProps({
 
 const mystore = useMyStore();
 var product = ref(null);
-var prodAppos = ref([]);
+var prodAppos = ref(null);
 
 onMounted(async () => {
   if (!mystore.products) {

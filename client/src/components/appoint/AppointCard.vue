@@ -142,6 +142,6 @@ const statusStyle = computed(() => {
           whitespace-nowrap
 }
 .status-btn {
-  @apply rounded-full border-2 py-2 px-2 pointer-events-none;
+  @apply rounded-full border-2 py-2 px-3 pointer-events-none;
 }
 </style>

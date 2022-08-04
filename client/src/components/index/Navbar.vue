@@ -7,7 +7,6 @@
       sm:px-4
       py-2
       rounded
-      dark:bg-gray-900
     "
   >
     <div class="flex flex-wrap justify-between items-center mx-auto">
@@ -20,7 +19,6 @@
             text-2xl
             font-semibold
             whitespace-nowrap
-            dark:text-white
           "
           >預約系統</span
         >
@@ -139,9 +137,6 @@
             bg-gray-200
             rounded-lg
             md:flex-row md:items-center md:mt-0 md:bg-gray-200
-            dark:bg-gray-800
-            md:dark:bg-gray-900
-            dark:border-gray-700
           "
         >
           <li>
@@ -219,7 +214,7 @@ const handleLogout = () => {
 .mynav-btn {
   @apply font-bold 
     block 
-    py-3 
+    py-4 
     px-2
     lg:px-4
   text-gray-700 rounded

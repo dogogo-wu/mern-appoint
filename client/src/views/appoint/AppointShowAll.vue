@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-lg font-bold">All Appointments</h1>
+    <h1 class="text-2xl font-bold mb-2">All Appointments</h1>
     <p v-if="error" class="text-lg text-red-500">{{ error }}</p>
 
     <div v-if="mystore.appoints">
@@ -19,7 +19,7 @@
         <p class="p-4 font-bold text-cyan-600">目前沒有預約喔~</p>
       </div>
     </div>
-    <div v-else class="flex justify-center">
+    <div v-else class="flex justify-center mt-8">
       <MyLoader />
     </div>
   </div>

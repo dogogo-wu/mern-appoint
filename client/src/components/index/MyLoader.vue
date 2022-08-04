@@ -8,7 +8,6 @@
         h-16
         text-gray-200
         animate-spin
-        dark:text-gray-600
         fill-blue-600
       "
       viewBox="0 0 100 101"
