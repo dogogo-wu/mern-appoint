@@ -22,6 +22,16 @@
           required
         />
       </div>
+      <div>
+        <label>Confirm Password</label>
+        <input
+          class="myinput"
+          v-model="repwd"
+          type="password"
+          name="repwd"
+          required
+        />
+      </div>
       <div class="myerr">{{ error }}</div>
       <button class="myuser-form-btn">Signup</button>
     </form>
@@ -39,6 +49,7 @@ export default {
     const mystore = useMyStore();
     const email = ref("");
     const password = ref("");
+    const repwd = ref('')
 
     const error = ref(null);
 
@@ -49,6 +60,10 @@ export default {
     });
 
     const handleSignup = async () => {
+      if (password.value !== repwd.value) {
+        error.value = "Passwords do not match"
+        return
+      }
       const user = { email: email.value, password: password.value };
       const response = await fetch(
         process.env.VUE_APP_BACKEND_LOCAL + "/api/user/signup",
@@ -73,7 +88,7 @@ export default {
       }
     };
 
-    return { email, password, handleSignup, error };
+    return { email, password, handleSignup, error, repwd };
   },
 };
 </script>
